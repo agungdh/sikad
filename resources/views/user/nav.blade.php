@@ -1,0 +1,1 @@
+<li><a href="{{ route('user.index') }}"><i class="fa fa-home"></i> User</a></li>

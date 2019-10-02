@@ -1,0 +1,1 @@
+git push gitlab --all && git push bitbucket --all && git push github --all

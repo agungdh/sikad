@@ -1,0 +1,1 @@
+<li><a href="{{ route('pasloncapres.index') }}"><i class="fa fa-home"></i> Paslon Capres</a></li>

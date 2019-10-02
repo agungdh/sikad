@@ -1,0 +1,1 @@
+<li><a href="{{ route('kabupaten.index') }}"><i class="fa fa-home"></i> Kabupaten</a></li>
