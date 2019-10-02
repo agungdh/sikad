@@ -129,6 +129,7 @@ window.vpage = new Vue({
 		  });
     	},
     	save: function() {
+        vpage.startLoading();
     		if (vpage.formStateAdd) {
     			vpage.store();
     		} else {
@@ -138,12 +139,14 @@ window.vpage = new Vue({
     	store: function() {
 			axios.post(baseUrl + '/dosen', vpage.formData)
 		  .then(function (response) {
+        vpage.stopLoading();
 		  	vpage.resetForm();
 		  	vpage.call();
 		  	vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
-		  	$('#modal-default').modal('hide');
+		  	$('#modal-page').modal('hide');
 		  })
 		  .catch(function (error) {
+        vpage.stopLoading();
 		  	if (error.response.data.errors) {
 		  		vpage.formDisplayDataErrors = [];
 		  		let formErrors = error.response.data.errors;
@@ -166,7 +169,7 @@ window.vpage = new Vue({
 			axios.get(baseUrl + '/dosen/' + id)
 		  .then(function (response) {
 		  	vpage.changeFormState(false, 'Ubah Data');
-		  	$("#modal-default").modal('show');
+		  	$("#modal-page").modal('show');
 
 		  	vpage.formData.id = response.data.id;
 		  	vpage.formData.nidn = response.data.nidn;
@@ -184,12 +187,14 @@ window.vpage = new Vue({
     	update: function(id) {
 			axios.put(baseUrl + '/dosen/' + id, vpage.formData)
 		  .then(function (response) {
+        vpage.stopLoading();
 		  	vpage.resetForm();
 		  	vpage.call();
 		  	vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
-		  	$('#modal-default').modal('hide');
+		  	$('#modal-page').modal('hide');
 		  })
 		  .catch(function (error) {
+        vpage.stopLoading();
 		  	if (error.response.data.errors) {
 		  		vpage.formDisplayDataErrors = [];
 		  		let formErrors = error.response.data.errors;
@@ -209,19 +214,19 @@ window.vpage = new Vue({
 		  });
     	},
     	delete: function(id) {
+      vpage.startLoading();
 			axios.delete(baseUrl + '/dosen/' + id)
 		  .then(function (response) {
-		  	setTimeout(function(){
-	  			vpage.toast('success', 'Berhasil Hapus Data', 'Sukses !!!');
-	  		}, 100);
+        vpage.stopLoading();
+  			vpage.toast('success', 'Berhasil Hapus Data', 'Sukses !!!');
 		  	vpage.call();
 		  })
 		  .catch(function (error) {
 		  	if (error.response.data.message) {
-		  		setTimeout(function(){
-		  			Swal.fire('ERROR !!!', error.response.data.message, 'error');
-		  		}, 100);
+          vpage.stopLoading();
+	  			Swal.fire('ERROR !!!', error.response.data.message, 'error');
 		  	} else {
+          vpage.stopLoading();
 			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
 			    console.log(error);
 			}

@@ -116,12 +116,12 @@
 
           <div class="form-group">
             <label :title="formDataErrors.nidn" :style="{ color: formDataErrors.nidn != '' ? 'red' : null }">NIDN</label>
-            <input :title="formDataErrors.nidn" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nidn != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nidn" placeholder="NIDN">
+            <input :disabled="isLoading" :title="formDataErrors.nidn" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nidn != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nidn" placeholder="NIDN">
           </div>
 
           <div class="form-group">
             <label :title="formDataErrors.nama" :style="{ color: formDataErrors.nama != '' ? 'red' : null }">Nama</label>
-            <input :title="formDataErrors.nama" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nama != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nama" placeholder="Nama">
+            <input :disabled="isLoading" :title="formDataErrors.nama" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nama != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nama" placeholder="Nama">
           </div>
 
       </div>
