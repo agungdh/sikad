@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: sikad
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.16-MariaDB
--- Date: Wed, 02 Oct 2019 22:55:18 +0700
+-- Date: Wed, 02 Oct 2019 23:54:32 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `dosen` (
   `nama` varchar(191) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nidn` (`nidn`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `dosen` (
 LOCK TABLES `dosen` WRITE;
 /*!40000 ALTER TABLE `dosen` DISABLE KEYS */;
 SET autocommit=0;
-INSERT INTO `dosen` VALUES (1,'15753003','Agung Sapto Margono Dh'),(2,'15753002','Adrian Reza Syahputri');
+INSERT INTO `dosen` VALUES (17,'15753001','Ade Irma Rilyani'),(18,'15753003','Agung Sapto Margono Dh');
 /*!40000 ALTER TABLE `dosen` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
@@ -121,4 +121,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Wed, 02 Oct 2019 22:55:18 +0700
+-- Dump completed on: Wed, 02 Oct 2019 23:54:32 +0700

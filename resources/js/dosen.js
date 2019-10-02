@@ -166,11 +166,12 @@ window.vpage = new Vue({
 		  });
     	},
     	getData: function(id) {
+        vpage.startLoading();
 			axios.get(baseUrl + '/dosen/' + id)
 		  .then(function (response) {
 		  	vpage.changeFormState(false, 'Ubah Data');
 		  	$("#modal-page").modal('show');
-
+        vpage.stopLoading();
 		  	vpage.formData.id = response.data.id;
 		  	vpage.formData.nidn = response.data.nidn;
 		  	vpage.formData.nama = response.data.nama;

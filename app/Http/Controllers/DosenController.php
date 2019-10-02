@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use ADHhelper;
 
 use App\Models\Dosen;
@@ -39,7 +40,7 @@ class DosenController extends Controller
    public function store(Request $request)
     {
         $request->validate([
-            'nidn' => 'required',
+            'nidn' => 'required|unique:dosen,nidn',
             'nama' => 'required',
         ]);
 
@@ -57,15 +58,16 @@ class DosenController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nidn' => 'required',
+            'nidn' => [
+                'required',
+                Rule::unique('dosen')->ignore($id),
+            ],
             'nama' => 'required',
-            'text3' => 'required',
         ]);
 
         $test = Dosen::find($id);
         $test->nidn = $request->nidn;
         $test->nama = $request->nama;
-        $test->text3 = $request->text3;
         $test->save();
     }
 
