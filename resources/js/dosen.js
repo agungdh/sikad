@@ -9,7 +9,9 @@ Vue.use(Loading);
 
 import VueToastr from '@deveodk/vue-toastr'
 import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
-Vue.use(VueToastr);
+Vue.use(VueToastr, {
+    defaultPosition: 'toast-top-right',
+});
 
 window.vpage = new Vue({
     el: '#page',
@@ -62,6 +64,9 @@ window.vpage = new Vue({
         Loading
     },
     methods: {
+      toast: function(p1, p2, p3) {
+        this.$toastr(p1, p2, p3);
+      },
       startLoading: function() {
         vpage.isLoading = true;
       },
@@ -135,7 +140,7 @@ window.vpage = new Vue({
 		  .then(function (response) {
 		  	vpage.resetForm();
 		  	vpage.call();
-		  	Swal.fire('SUKSES !!!', 'Berhasil Simpan Data !!!', 'success');
+		  	vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
 		  	$('#modal-default').modal('hide');
 		  })
 		  .catch(function (error) {
@@ -181,7 +186,7 @@ window.vpage = new Vue({
 		  .then(function (response) {
 		  	vpage.resetForm();
 		  	vpage.call();
-		  	Swal.fire('SUKSES !!!', 'Berhasil Ubah Data !!!', 'success');
+		  	vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
 		  	$('#modal-default').modal('hide');
 		  })
 		  .catch(function (error) {
@@ -207,7 +212,7 @@ window.vpage = new Vue({
 			axios.delete(baseUrl + '/dosen/' + id)
 		  .then(function (response) {
 		  	setTimeout(function(){
-	  			Swal.fire('SUKSES !!!', 'Berhasil Simpan Data !!!', 'success');
+	  			vpage.toast('success', 'Berhasil Hapus Data', 'Sukses !!!');
 	  		}, 100);
 		  	vpage.call();
 		  })
@@ -306,9 +311,11 @@ window.vpage = new Vue({
 		      showCancelButton: true,
 		      confirmButtonColor: "#DD6B55",
 		      confirmButtonText: "Hapus",
-		    }, function(){
-		      vpage.delete(id);
-		    });
+		    }).then((result) => {
+          if (result.value) {
+            vpage.delete(id);
+          }
+        });
     	}
     },
     mounted: function () {

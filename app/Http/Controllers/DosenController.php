@@ -41,19 +41,17 @@ class DosenController extends Controller
         $request->validate([
             'nidn' => 'required',
             'nama' => 'required',
-            'text3' => 'required',
         ]);
 
-        $test = new Test();
+        $test = new Dosen();
         $test->nidn = $request->nidn;
         $test->nama = $request->nama;
-        $test->text3 = $request->text3;
         $test->save();
     }
 
     public function show($id)
     {
-        return Test::findOrFail($id);
+        return Dosen::findOrFail($id);
     }
 
     public function update(Request $request, $id)
@@ -64,7 +62,7 @@ class DosenController extends Controller
             'text3' => 'required',
         ]);
 
-        $test = Test::find($id);
+        $test = Dosen::find($id);
         $test->nidn = $request->nidn;
         $test->nama = $request->nama;
         $test->text3 = $request->text3;
@@ -73,6 +71,6 @@ class DosenController extends Controller
 
     public function delete($id)
     {
-        Test::find($id)->delete();
+        Dosen::find($id)->delete();
     }
 }

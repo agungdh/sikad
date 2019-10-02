@@ -13,6 +13,9 @@
   <div class="tile">
     <h3 class="tile-title">Data Dosen</h3>
     <div class="tile-body"> 
+      <p class="bs-component">
+        <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#modal-page" @@click="changeFormState(true, 'Tambah Data')">Tambah</button>
+      </p>
       <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
         <div class="row">
             <div class="col-sm-12 col-md-6">
@@ -38,8 +41,8 @@
                     <td>@{{ item.nidn }}</td>
                     <td>@{{ item.nama }}</td>
                     <td>
-                      <button class="btn btn-primary" type="button" @@click="getData(item.id)">Ubah</button>
-                      <button class="btn btn-danger" type="button" @@click="hapusData(item.id)">Hapus</button>
+                      <button class="btn btn-info btn-sm" type="button" @@click="getData(item.id)">Ubah</button>
+                      <button class="btn btn-danger btn-sm" type="button" @@click="hapusData(item.id)">Hapus</button>
                     </td>
                   </tr>
                 </tbody>
@@ -93,18 +96,37 @@
   </div>
 </div>
 
-<div class="modal" id="modal-page">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="modal-page">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">@{{formState}}</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">
-        <p>Modal body text goes here.</p>
+
+          <div v-if="formDisplayDataErrors.length > 0">
+            <div class="alert alert-danger alert-dismissible">
+              <h5><i class="icon fa fa-ban"></i> Alert!</h5>
+              <ul v-for="item in formDisplayDataErrors">
+                <li>@{{item}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label :title="formDataErrors.nidn" :style="{ color: formDataErrors.nidn != '' ? 'red' : null }">NIDN</label>
+            <input :title="formDataErrors.nidn" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nidn != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nidn" placeholder="NIDN">
+          </div>
+
+          <div class="form-group">
+            <label :title="formDataErrors.nama" :style="{ color: formDataErrors.nama != '' ? 'red' : null }">Nama</label>
+            <input :title="formDataErrors.nama" :class="{ 'form-control': true, 'is-invalid': formDataErrors.nama != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.nama" placeholder="Nama">
+          </div>
+
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="button">Save changes</button>
+        <button class="btn btn-primary" type="button" @@click="save">Save changes</button>
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
       </div>
     </div>
