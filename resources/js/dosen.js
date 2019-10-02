@@ -7,6 +7,10 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 Vue.use(Loading);
 
+import VueToastr from '@deveodk/vue-toastr'
+import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
+Vue.use(VueToastr);
+
 window.vpage = new Vue({
     el: '#page',
     data: {
