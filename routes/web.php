@@ -4,6 +4,19 @@ Route::get('/', function() {
 	return view('template.palih');
 });
 
+Route::get('/seed', function() {
+	$datas = [];
+
+	$faker = \Faker\Factory::create();
+
+	for ($i=1; $i <= 1000; $i++) { 
+		$datas[$i]['nidn'] = 123456 + $i;
+		$datas[$i]['nama'] = $faker->name;
+	}
+
+	DB::table('dosen')->insert($datas);
+});
+
 Route::get('/dosen', 'DosenController@index')->name('dosen.index');
 Route::post('/dosen/getTableData', 'DosenController@getTableData')->name('dosen.getTableData');
 Route::post('/dosen', 'DosenController@store')->name('dosen.store');
