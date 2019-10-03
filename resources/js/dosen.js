@@ -120,6 +120,8 @@ window.vpage = new Vue({
 		    vpage.tableInfo.total = response.data.total;
 
 		    vpage.setTableNav();
+
+        vpage.setMaxPageInfo();
 		  })
 		  .catch(function (error) {
         vpage.stopLoading();
@@ -295,6 +297,7 @@ window.vpage = new Vue({
     	changeFormState: function(add, text) {
     		vpage.formStateAdd = add;
     		vpage.formState = text;
+        vpage.resetForm();
     	},
     	resetForm: function() {
     		vpage.formDisplayDataErrors = [];
@@ -322,13 +325,16 @@ window.vpage = new Vue({
             vpage.delete(id);
           }
         });
-    	}
+    	},
+      setMaxPageInfo: function() {
+        vpage.tableInfo.maxPage = `of ${vpage.tableParam.maxPage}`;
+      }
     },
     mounted: function () {
 		this.$nextTick(function () {
 		 vpage.call();
 
-     vpage.tableInfo.maxPage = `of ${vpage.tableParam.maxPage}`;
+     vpage.setMaxPageInfo();
 		});
 	},
 });
