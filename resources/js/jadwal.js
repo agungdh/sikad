@@ -89,6 +89,10 @@ window.vpage = new Vue({
         id_dosen: [],
         id_matkul: [],
       },
+      vselectValue: {
+        id_dosen: null,
+        id_matkul: null,
+      },
 
     },
     components: {
@@ -121,24 +125,12 @@ window.vpage = new Vue({
         // END EDIT HERE
       };
       },
-      setDosen: function(event) {
-        vpage.formData.id_dosen = event.key;
-      },
+      // EDIT HERE
       onDosenSearch(search, loading) {
         loading(true);
-        this.search(loading, search, this);
+        this.dosenSearch(loading, search, this);
       },
-      search: _.debounce((loading, search, vm) => {
-
-        // fetch(
-        //   baseUrl + '/jadwal/getDosen', {
-        //     method: 'POST',
-        //     body: JSON.stringify({search: search}),
-        //   }
-        // ).then(res => {
-        //   res.json().then(json => (vm.vselectOptions.id_dosen = json.items));
-        //   loading(false);
-        // });
+      dosenSearch: _.debounce((loading, search, vm) => {
         vpage.vselectOptions.id_dosen = [];
         axios.post(baseUrl + '/jadwal/getDosen', {search: search})
       .then(function (response) {
@@ -151,12 +143,32 @@ window.vpage = new Vue({
         loading(false);
       })
       .catch(function (error) {
-        console.log(error);
         loading(false);
         Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
       });
-
       }, 350),
+      onMatkulSearch(search, loading) {
+        loading(true);
+        this.matkulSearch(loading, search, this);
+      },
+      matkulSearch: _.debounce((loading, search, vm) => {
+        vpage.vselectOptions.id_matkul = [];
+        axios.post(baseUrl + '/jadwal/getMatkul', {search: search})
+      .then(function (response) {
+        for (let key in response.data) {
+          vpage.vselectOptions.id_matkul.push({
+            key: response.data[key].id,
+            value: `${response.data[key].kode} => ${response.data[key].matkul}`,
+          });
+        }
+        loading(false);
+      })
+      .catch(function (error) {
+        loading(false);
+        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+      });
+      }, 350),
+      // END EDIT HERE
       store: function() {
       axios.post(baseUrl + '/jadwal', vpage.formData)
       .then(function (response) {
@@ -239,7 +251,6 @@ window.vpage = new Vue({
           vpage.formDataErrors.ruangan = formErrors.ruangan ? formErrors.ruangan[0] : '';
           vpage.formDataErrors.semester = formErrors.semester ? formErrors.semester[0] : '';
           // END EDIT HERE
-          // END EDIT ================================================
           for (let key1 in formErrors) {
             for (let key2 in formErrors[key1]) {
               vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
@@ -293,6 +304,13 @@ window.vpage = new Vue({
       },
       save: function() {
         vpage.startLoading();
+
+        // EDIT HERE
+        vpage.formData.id_dosen = vpage.vselectValue.id_dosen != null ? vpage.vselectValue.id_dosen.key : '';
+        vpage.formData.id_matkul = vpage.vselectValue.id_matkul != null ? vpage.vselectValue.id_matkul.key : '';
+        // END EDIT HERE
+        // END EDIT ================================================
+
         if (vpage.formStateAdd) {
           vpage.store();
         } else {

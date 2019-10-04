@@ -31,6 +31,15 @@ class JadwalController extends Controller
         ->get();
     }
 
+    public function getMatkul(Request $req)
+    {
+        return Matkul::where(function ($query) use ($req) {
+            return $query->orWhere('kode', 'like', '%' . $req->search . '%')
+                            ->orWhere('matkul', 'like', '%' . $req->search . '%');
+        })->limit(10)
+        ->get();
+    }
+
     public function getTableData(Request $req)
     {
         $columnModel[1] = "hari";

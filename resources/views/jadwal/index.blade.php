@@ -149,9 +149,12 @@
 
           <div class="form-group">
             <label :title="formDataErrors.id_dosen" :style="{ color: formDataErrors.id_dosen != '' ? 'red' : null }">Dosen</label>
-            {{-- <input :disabled="isLoading" :title="formDataErrors.id_dosen" :class="{ 'form-control': true, 'is-invalid': formDataErrors.id_dosen != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.id_dosen" placeholder="id_dosen"> --}}
-            {{-- <v-select label="name" :filterable="false" :options="vselectOptions.id_dosen" @@search="onSearch"></v-select> --}}
-            <v-select :title="formDataErrors.id_dosen" :options="vselectOptions.id_dosen" label="value" @@input="setDosen" @@search="onDosenSearch"></v-select>
+            <v-select :disabled="isLoading" :title="formDataErrors.id_dosen" :options="vselectOptions.id_dosen" label="value" v-model.lazy="vselectValue.id_dosen" @@search="onDosenSearch"></v-select>
+          </div>
+
+          <div class="form-group">
+            <label :title="formDataErrors.id_matkul" :style="{ color: formDataErrors.id_matkul != '' ? 'red' : null }">Mata Kuliah</label>
+            <v-select :disabled="isLoading" :title="formDataErrors.id_matkul" :options="vselectOptions.id_matkul" label="value" v-model.lazy="vselectValue.id_matkul" @@search="onMatkulSearch"></v-select>
           </div>
 
           <div class="form-group">
