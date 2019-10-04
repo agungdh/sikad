@@ -91,6 +91,7 @@ window.vpage = new Vue({
 		    vpage.tableInfo.to = response.data.to;
 		    vpage.tableInfo.total = response.data.total;
         vpage.tableParam.page = response.data.current_page;
+        vpage.tableParam.perPage = response.data.per_page;
 
 		    vpage.setTableNav();
 
