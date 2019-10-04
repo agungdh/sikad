@@ -14,7 +14,8 @@ const mix = require('laravel-mix');
 mix.js('resources/js/menu.js', 'compiled/js');
 mix.js('resources/js/dosen.js', 'compiled/js');
 mix.js('resources/js/matkul.js', 'compiled/js');
+mix.js('resources/js/jadwal.js', 'compiled/js');
 
 mix.version();
 mix.disableNotifications();
-mix.extract(['axios','lodash','vue','sweetalert2','vue-loading-overlay', '@deveodk/vue-toastr']);
+mix.extract(['axios','lodash','vue','sweetalert2','vue-loading-overlay', '@deveodk/vue-toastr', 'vue-select']);

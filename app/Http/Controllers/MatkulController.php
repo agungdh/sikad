@@ -69,7 +69,7 @@ class MatkulController extends Controller
         $test->save();
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         Matkul::findOrFail($id)->delete();
     }

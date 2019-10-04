@@ -1,3 +1,3 @@
 <li><a :class="{'active': activeMenu.includes('Dosen'), 'app-menu__item': true}" href="{{route('dosen.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dosen</span></a></li>
 <li><a :class="{'active': activeMenu.includes('Mata Kuliah'), 'app-menu__item': true}" href="{{route('matkul.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Mata Kuliah</span></a></li>
-<li><a :class="{'active': activeMenu.includes('Jadwal Kuliah'), 'app-menu__item': true}" href="{{url('/')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Jadwal Kuliah</span></a></li>
+<li><a :class="{'active': activeMenu.includes('Jadwal Kuliah'), 'app-menu__item': true}" href="{{route('jadwal.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Jadwal Kuliah</span></a></li>

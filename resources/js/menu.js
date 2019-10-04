@@ -1,4 +1,4 @@
-window.Vue = require('vue');
+import Vue from 'vue';
 
 window.vmenu = new Vue({
     el: '#menu',

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
+import _ from 'lodash';
 
 import Swal from 'sweetalert2'
 
@@ -12,6 +13,10 @@ import '@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css'
 Vue.use(VueToastr, {
     defaultPosition: 'toast-top-right',
 });
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
+Vue.component('v-select', vSelect)
 
 window.vpage = new Vue({
     el: '#page',
@@ -41,8 +46,14 @@ window.vpage = new Vue({
         search: {
           // START EDIT ================================================
           // EDIT HERE
-          kode: '',
-          matkul: '',
+          hari: '',
+          waktu: '',
+          ruangan: '',
+          kodemk: '',
+          namamk: '',
+          kelas: '',
+          semester: '',
+          dosen: '',
           // END EDIT HERE
         },
         perPage: 5,
@@ -53,16 +64,30 @@ window.vpage = new Vue({
       formData: {
         // EDIT HERE
         id: '',
-        kode: '',
-        matkul: '',
+        id_dosen: '',
+        id_matkul: '',
+        kelas: '',
+        hari: '',
+        waktu: '',
+        ruangan: '',
+        semester: '',
         // END EDIT HERE
       },
       formDataErrors: {
         // EDIT HERE
         id: '',
-        kode: '',
-        matkul: '',
+        id_dosen: '',
+        id_matkul: '',
+        kelas: '',
+        hari: '',
+        waktu: '',
+        ruangan: '',
+        semester: '',
         // END EDIT HERE
+      },
+      vselectOptions: {
+        id_dosen: [],
+        id_matkul: [],
       },
 
     },
@@ -75,19 +100,65 @@ window.vpage = new Vue({
       vpage.formData = {
         // EDIT HERE
         id: '',
-        kode: '',
-        matkul: '',
+        id_dosen: '',
+        id_matkul: '',
+        kelas: '',
+        hari: '',
+        waktu: '',
+        ruangan: '',
+        semester: '',
       };
       vpage.formDataErrors = {
         // EDIT HERE
         id: '',
-        kode: '',
-        matkul: '',
+        id_dosen: '',
+        id_matkul: '',
+        kelas: '',
+        hari: '',
+        waktu: '',
+        ruangan: '',
+        semester: '',
         // END EDIT HERE
       };
       },
+      setDosen: function(event) {
+        vpage.formData.id_dosen = event.key;
+      },
+      onDosenSearch(search, loading) {
+        loading(true);
+        this.search(loading, search, this);
+      },
+      search: _.debounce((loading, search, vm) => {
+
+        // fetch(
+        //   baseUrl + '/jadwal/getDosen', {
+        //     method: 'POST',
+        //     body: JSON.stringify({search: search}),
+        //   }
+        // ).then(res => {
+        //   res.json().then(json => (vm.vselectOptions.id_dosen = json.items));
+        //   loading(false);
+        // });
+        vpage.vselectOptions.id_dosen = [];
+        axios.post(baseUrl + '/jadwal/getDosen', {search: search})
+      .then(function (response) {
+        for (let key in response.data) {
+          vpage.vselectOptions.id_dosen.push({
+            key: response.data[key].id,
+            value: `${response.data[key].nidn} => ${response.data[key].nama}`,
+          });
+        }
+        loading(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+        loading(false);
+        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+      });
+
+      }, 350),
       store: function() {
-      axios.post(baseUrl + '/matkul', vpage.formData)
+      axios.post(baseUrl + '/jadwal', vpage.formData)
       .then(function (response) {
         vpage.stopLoading();
         vpage.resetForm();
@@ -102,8 +173,13 @@ window.vpage = new Vue({
           let formErrors = error.response.data.errors;
 
           // EDIT HERE
-          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
-          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
+          vpage.formDataErrors.id_dosen = formErrors.id_dosen ? formErrors.id_dosen[0] : '';
+          vpage.formDataErrors.id_matkul = formErrors.id_matkul ? formErrors.id_matkul[0] : '';
+          vpage.formDataErrors.kelas = formErrors.kelas ? formErrors.kelas[0] : '';
+          vpage.formDataErrors.hari = formErrors.hari ? formErrors.hari[0] : '';
+          vpage.formDataErrors.waktu = formErrors.waktu ? formErrors.waktu[0] : '';
+          vpage.formDataErrors.ruangan = formErrors.ruangan ? formErrors.ruangan[0] : '';
+          vpage.formDataErrors.semester = formErrors.semester ? formErrors.semester[0] : '';
           // END EDIT HERE
 
           for (let key1 in formErrors) {
@@ -118,15 +194,20 @@ window.vpage = new Vue({
       },
       getData: function(id) {
         vpage.startLoading();
-      axios.get(baseUrl + '/matkul/' + id)
+      axios.get(baseUrl + '/jadwal/' + id)
       .then(function (response) {
         vpage.changeFormState(false, 'Ubah Data');
         $("#modal-page").modal('show');
         vpage.stopLoading();
         // EDIT HERE
         vpage.formData.id = response.data.id;
-        vpage.formData.kode = response.data.kode;
-        vpage.formData.matkul = response.data.matkul;
+        vpage.formData.id_dosen = response.data.id_dosen;
+        vpage.formData.id_matkul = response.data.id_matkul;
+        vpage.formData.kelas = response.data.kelas;
+        vpage.formData.hari = response.data.hari;
+        vpage.formData.waktu = response.data.waktu;
+        vpage.formData.ruangan = response.data.ruangan;
+        vpage.formData.semester = response.data.semester;
         // END EDIT HERE
       })
       .catch(function (error) {
@@ -135,7 +216,7 @@ window.vpage = new Vue({
       });
       },
       update: function(id) {
-      axios.put(baseUrl + '/matkul/' + id, vpage.formData)
+      axios.put(baseUrl + '/jadwal/' + id, vpage.formData)
       .then(function (response) {
         vpage.stopLoading();
         vpage.resetForm();
@@ -150,8 +231,13 @@ window.vpage = new Vue({
           let formErrors = error.response.data.errors;
           
           // EDIT HERE
-          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
-          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
+          vpage.formDataErrors.id_dosen = formErrors.id_dosen ? formErrors.id_dosen[0] : '';
+          vpage.formDataErrors.id_matkul = formErrors.id_matkul ? formErrors.id_matkul[0] : '';
+          vpage.formDataErrors.kelas = formErrors.kelas ? formErrors.kelas[0] : '';
+          vpage.formDataErrors.hari = formErrors.hari ? formErrors.hari[0] : '';
+          vpage.formDataErrors.waktu = formErrors.waktu ? formErrors.waktu[0] : '';
+          vpage.formDataErrors.ruangan = formErrors.ruangan ? formErrors.ruangan[0] : '';
+          vpage.formDataErrors.semester = formErrors.semester ? formErrors.semester[0] : '';
           // END EDIT HERE
           // END EDIT ================================================
           for (let key1 in formErrors) {
@@ -176,7 +262,7 @@ window.vpage = new Vue({
       call: function() {
         vpage.startLoading();
 
-      axios.post(baseUrl + '/matkul/getTableData', {
+      axios.post(baseUrl + '/jadwal/getTableData', {
         perPage: vpage.tableParam.perPage,
         search: vpage.tableParam.search,
         sorting: {
@@ -215,7 +301,7 @@ window.vpage = new Vue({
       },
       delete: function(id) {
       vpage.startLoading();
-      axios.delete(baseUrl + '/matkul/' + id)
+      axios.delete(baseUrl + '/jadwal/' + id)
       .then(function (response) {
         vpage.stopLoading();
         vpage.toast('success', 'Berhasil Hapus Data', 'Sukses !!!');

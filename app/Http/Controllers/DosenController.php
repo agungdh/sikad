@@ -69,7 +69,7 @@ class DosenController extends Controller
         $test->save();
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         Dosen::findOrFail($id)->delete();
     }
