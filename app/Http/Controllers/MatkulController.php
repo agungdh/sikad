@@ -22,29 +22,29 @@ class MatkulController extends Controller
 
     public function getTableData(Request $req)
     {
-        $columnModel[1] = "nidn";
-        $columnModel[2] = "nama";
+        $columnModel[1] = "kode";
+        $columnModel[2] = "matkul";
 
-        $dosens = new Matkul();
-        $dosens = $dosens->where('nidn', 'like', '%' . $req->search['nidn'] . '%');
-        $dosens = $dosens->where('nama', 'like', '%' . $req->search['nama'] . '%');
-        $dosens = $dosens->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
-        $dosens = $dosens->paginate($req->perPage);
+        $matkuls = new Matkul();
+        $matkuls = $matkuls->where('kode', 'like', '%' . $req->search['kode'] . '%');
+        $matkuls = $matkuls->where('matkul', 'like', '%' . $req->search['matkul'] . '%');
+        $matkuls = $matkuls->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
+        $matkuls = $matkuls->paginate($req->perPage);
 
-        return response()->json($dosens);
+        return response()->json($matkuls);
     }
 
 
    public function store(Request $request)
     {
         $request->validate([
-            'nidn' => 'required|unique:dosen,nidn',
-            'nama' => 'required',
+            'kode' => 'required|unique:matkul,kode',
+            'matkul' => 'required',
         ]);
 
         $test = new Matkul();
-        $test->nidn = $request->nidn;
-        $test->nama = $request->nama;
+        $test->kode = $request->kode;
+        $test->matkul = $request->matkul;
         $test->save();
     }
 
@@ -56,16 +56,16 @@ class MatkulController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nidn' => [
+            'kode' => [
                 'required',
-                Rule::unique('dosen')->ignore($id),
+                Rule::unique('matkul')->ignore($id),
             ],
-            'nama' => 'required',
+            'matkul' => 'required',
         ]);
 
         $test = Matkul::find($id);
-        $test->nidn = $request->nidn;
-        $test->nama = $request->nama;
+        $test->kode = $request->kode;
+        $test->matkul = $request->matkul;
         $test->save();
     }
 

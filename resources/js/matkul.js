@@ -23,8 +23,8 @@ window.vpage = new Vue({
       tableData: [],
       tableParam: {
         search: {
-          nidn: '',
-          nama: '',
+          kode: '',
+          matkul: '',
         },
         perPage: 5,
         maxPage: 1,
@@ -44,13 +44,13 @@ window.vpage = new Vue({
       },
       formData: {
         id: '',
-        nidn: '',
-        nama: '',
+        kode: '',
+        matkul: '',
       },
       formDataErrors: {
         id: '',
-        nidn: '',
-        nama: '',
+        kode: '',
+        matkul: '',
       },
       formDisplayDataErrors: [],
       formState: '',
@@ -73,7 +73,7 @@ window.vpage = new Vue({
       call: function() {
         vpage.startLoading();
 
-      axios.post(baseUrl + '/dosen/getTableData', {
+      axios.post(baseUrl + '/matkul/getTableData', {
         perPage: vpage.tableParam.perPage,
         search: vpage.tableParam.search,
         sorting: {
@@ -113,7 +113,7 @@ window.vpage = new Vue({
         }
       },
       store: function() {
-      axios.post(baseUrl + '/dosen', vpage.formData)
+      axios.post(baseUrl + '/matkul', vpage.formData)
       .then(function (response) {
         vpage.stopLoading();
         vpage.resetForm();
@@ -127,8 +127,8 @@ window.vpage = new Vue({
           vpage.formDisplayDataErrors = [];
           let formErrors = error.response.data.errors;
 
-          vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
-          vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
+          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
+          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
 
           for (let key1 in formErrors) {
             for (let key2 in formErrors[key1]) {
@@ -143,14 +143,14 @@ window.vpage = new Vue({
       },
       getData: function(id) {
         vpage.startLoading();
-      axios.get(baseUrl + '/dosen/' + id)
+      axios.get(baseUrl + '/matkul/' + id)
       .then(function (response) {
         vpage.changeFormState(false, 'Ubah Data');
         $("#modal-page").modal('show');
         vpage.stopLoading();
         vpage.formData.id = response.data.id;
-        vpage.formData.nidn = response.data.nidn;
-        vpage.formData.nama = response.data.nama;
+        vpage.formData.kode = response.data.kode;
+        vpage.formData.matkul = response.data.matkul;
       })
       .catch(function (error) {
         if (error.response.data.message) {
@@ -162,7 +162,7 @@ window.vpage = new Vue({
       });
       },
       update: function(id) {
-      axios.put(baseUrl + '/dosen/' + id, vpage.formData)
+      axios.put(baseUrl + '/matkul/' + id, vpage.formData)
       .then(function (response) {
         vpage.stopLoading();
         vpage.resetForm();
@@ -176,8 +176,8 @@ window.vpage = new Vue({
           vpage.formDisplayDataErrors = [];
           let formErrors = error.response.data.errors;
 
-          vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
-          vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
+          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
+          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
 
           for (let key1 in formErrors) {
             for (let key2 in formErrors[key1]) {
@@ -192,7 +192,7 @@ window.vpage = new Vue({
       },
       delete: function(id) {
       vpage.startLoading();
-      axios.delete(baseUrl + '/dosen/' + id)
+      axios.delete(baseUrl + '/matkul/' + id)
       .then(function (response) {
         vpage.stopLoading();
         vpage.toast('success', 'Berhasil Hapus Data', 'Sukses !!!');
@@ -277,13 +277,13 @@ window.vpage = new Vue({
         vpage.formDisplayDataErrors = [];
       vpage.formData = {
         id: '',
-        nidn: '',
-        nama: '',
+        kode: '',
+        matkul: '',
       };
       vpage.formDataErrors = {
         id: '',
-        nidn: '',
-        nama: '',
+        kode: '',
+        matkul: '',
       };
       },
       hapusData: function(id) {
