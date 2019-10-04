@@ -25,13 +25,13 @@ class MatkulController extends Controller
         $columnModel[1] = "kode";
         $columnModel[2] = "matkul";
 
-        $matkuls = new Matkul();
-        $matkuls = $matkuls->where('kode', 'like', '%' . $req->search['kode'] . '%');
-        $matkuls = $matkuls->where('matkul', 'like', '%' . $req->search['matkul'] . '%');
-        $matkuls = $matkuls->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
-        $matkuls = $matkuls->paginate($req->perPage);
+        $dosens = new Matkul();
+        $dosens = $dosens->where('kode', 'like', '%' . $req->search['kode'] . '%');
+        $dosens = $dosens->where('matkul', 'like', '%' . $req->search['matkul'] . '%');
+        $dosens = $dosens->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
+        $dosens = $dosens->paginate($req->perPage);
 
-        return response()->json($matkuls);
+        return response()->json($dosens);
     }
 
 
@@ -63,7 +63,7 @@ class MatkulController extends Controller
             'matkul' => 'required',
         ]);
 
-        $test = Matkul::find($id);
+        $test = Matkul::findOrFail($id);
         $test->kode = $request->kode;
         $test->matkul = $request->matkul;
         $test->save();
@@ -71,6 +71,6 @@ class MatkulController extends Controller
 
     public function delete($id)
     {
-        Matkul::find($id)->delete();
+        Matkul::findOrFail($id)->delete();
     }
 }

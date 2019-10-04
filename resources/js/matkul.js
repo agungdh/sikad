@@ -21,15 +21,6 @@ window.vpage = new Vue({
         asc: true,
       },
       tableData: [],
-      tableParam: {
-        search: {
-          kode: '',
-          matkul: '',
-        },
-        perPage: 5,
-        maxPage: 1,
-        page: 1,
-      },
       tableInfo: {
         maxPage: null,
         from: 0,
@@ -42,25 +33,137 @@ window.vpage = new Vue({
         next: true,
         last: true,
       },
-      formData: {
-        id: '',
-        kode: '',
-        matkul: '',
-      },
-      formDataErrors: {
-        id: '',
-        kode: '',
-        matkul: '',
-      },
       formDisplayDataErrors: [],
       formState: '',
       formStateAdd: true,
       isLoading: false,
+      tableParam: {
+        search: {
+          // START EDIT ================================================
+          // EDIT HERE
+          kode: '',
+          matkul: '',
+          // END EDIT HERE
+        },
+        perPage: 5,
+        maxPage: 1,
+        page: 1,
+      },
+
+      formData: {
+        // EDIT HERE
+        id: '',
+        kode: '',
+        matkul: '',
+        // END EDIT HERE
+      },
+      formDataErrors: {
+        // EDIT HERE
+        id: '',
+        kode: '',
+        matkul: '',
+        // END EDIT HERE
+      },
+
     },
     components: {
         Loading
     },
     methods: {
+      resetForm: function() {
+        vpage.formDisplayDataErrors = [];
+      vpage.formData = {
+        // EDIT HERE
+        id: '',
+        kode: '',
+        matkul: '',
+      };
+      vpage.formDataErrors = {
+        // EDIT HERE
+        id: '',
+        kode: '',
+        matkul: '',
+        // END EDIT HERE
+      };
+      },
+      store: function() {
+      axios.post(baseUrl + '/matkul', vpage.formData)
+      .then(function (response) {
+        vpage.stopLoading();
+        vpage.resetForm();
+        vpage.call();
+        vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
+        $('#modal-page').modal('hide');
+      })
+      .catch(function (error) {
+        vpage.call();
+        if (error.response.data.errors) {
+          vpage.formDisplayDataErrors = [];
+          let formErrors = error.response.data.errors;
+
+          // EDIT HERE
+          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
+          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
+          // END EDIT HERE
+
+          for (let key1 in formErrors) {
+            for (let key2 in formErrors[key1]) {
+              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+          }
+        }
+        } else {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        }
+      });
+      },
+      getData: function(id) {
+        vpage.startLoading();
+      axios.get(baseUrl + '/matkul/' + id)
+      .then(function (response) {
+        vpage.changeFormState(false, 'Ubah Data');
+        $("#modal-page").modal('show');
+        vpage.stopLoading();
+        // EDIT HERE
+        vpage.formData.id = response.data.id;
+        vpage.formData.kode = response.data.kode;
+        vpage.formData.matkul = response.data.matkul;
+        // END EDIT HERE
+      })
+      .catch(function (error) {
+        vpage.call();
+        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+      });
+      },
+      update: function(id) {
+      axios.put(baseUrl + '/matkul/' + id, vpage.formData)
+      .then(function (response) {
+        vpage.stopLoading();
+        vpage.resetForm();
+        vpage.call();
+        vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
+        $('#modal-page').modal('hide');
+      })
+      .catch(function (error) {
+        vpage.call();
+        if (error.response.data.errors) {
+          vpage.formDisplayDataErrors = [];
+          let formErrors = error.response.data.errors;
+          
+          // EDIT HERE
+          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
+          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
+          // END EDIT HERE
+          // END EDIT ================================================
+          for (let key1 in formErrors) {
+            for (let key2 in formErrors[key1]) {
+              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+          }
+        }
+        } else {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        }
+      });
+      },
       toast: function(p1, p2, p3) {
         this.$toastr(p1, p2, p3);
       },
@@ -99,9 +202,7 @@ window.vpage = new Vue({
       })
       .catch(function (error) {
         vpage.stopLoading();
-
         Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-        console.log(error);
       });
       },
       save: function() {
@@ -112,84 +213,6 @@ window.vpage = new Vue({
           vpage.update(vpage.formData.id);
         }
       },
-      store: function() {
-      axios.post(baseUrl + '/matkul', vpage.formData)
-      .then(function (response) {
-        vpage.stopLoading();
-        vpage.resetForm();
-        vpage.call();
-        vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
-        $('#modal-page').modal('hide');
-      })
-      .catch(function (error) {
-        vpage.stopLoading();
-        if (error.response.data.errors) {
-          vpage.formDisplayDataErrors = [];
-          let formErrors = error.response.data.errors;
-
-          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
-          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
-
-          for (let key1 in formErrors) {
-            for (let key2 in formErrors[key1]) {
-              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
-          }
-        }
-        } else {
-          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-          console.log(error);
-        }
-      });
-      },
-      getData: function(id) {
-        vpage.startLoading();
-      axios.get(baseUrl + '/matkul/' + id)
-      .then(function (response) {
-        vpage.changeFormState(false, 'Ubah Data');
-        $("#modal-page").modal('show');
-        vpage.stopLoading();
-        vpage.formData.id = response.data.id;
-        vpage.formData.kode = response.data.kode;
-        vpage.formData.matkul = response.data.matkul;
-      })
-      .catch(function (error) {
-        if (error.response.data.message) {
-          Swal.fire('ERROR !!!', error.response.data.message, 'error');
-        } else {
-          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-          console.log(error);
-        }
-      });
-      },
-      update: function(id) {
-      axios.put(baseUrl + '/matkul/' + id, vpage.formData)
-      .then(function (response) {
-        vpage.stopLoading();
-        vpage.resetForm();
-        vpage.call();
-        vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
-        $('#modal-page').modal('hide');
-      })
-      .catch(function (error) {
-        vpage.stopLoading();
-        if (error.response.data.errors) {
-          vpage.formDisplayDataErrors = [];
-          let formErrors = error.response.data.errors;
-
-          vpage.formDataErrors.kode = formErrors.kode ? formErrors.kode[0] : '';
-          vpage.formDataErrors.matkul = formErrors.matkul ? formErrors.matkul[0] : '';
-
-          for (let key1 in formErrors) {
-            for (let key2 in formErrors[key1]) {
-              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
-          }
-        }
-        } else {
-          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-          console.log(error);
-        }
-      });
-      },
       delete: function(id) {
       vpage.startLoading();
       axios.delete(baseUrl + '/matkul/' + id)
@@ -199,14 +222,8 @@ window.vpage = new Vue({
         vpage.call();
       })
       .catch(function (error) {
-        if (error.response.data.message) {
-          vpage.stopLoading();
-          Swal.fire('ERROR !!!', error.response.data.message, 'error');
-        } else {
-          vpage.stopLoading();
+        vpage.call();
           Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-          console.log(error);
-      }
       });
       },
       sort: function(colNo) {
@@ -272,19 +289,6 @@ window.vpage = new Vue({
         vpage.formStateAdd = add;
         vpage.formState = text;
         vpage.resetForm();
-      },
-      resetForm: function() {
-        vpage.formDisplayDataErrors = [];
-      vpage.formData = {
-        id: '',
-        kode: '',
-        matkul: '',
-      };
-      vpage.formDataErrors = {
-        id: '',
-        kode: '',
-        matkul: '',
-      };
       },
       hapusData: function(id) {
         Swal.fire({
