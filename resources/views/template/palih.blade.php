@@ -97,8 +97,5 @@ if(session('login')) {
       vmenu.activeMenu.push('{{session('activeMenu')}}');
       @endif
     </script>
-    @php
-    session()->forget('activeMenu');
-    @endphp
   </body>
 </html>

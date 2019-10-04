@@ -36,6 +36,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HttpsProtocol::class,
+            \App\Http\Middleware\ClearMenu::class,
         ],
 
         'api' => [
@@ -63,6 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ADHauth' => \App\Http\Middleware\ADHauth::class,
         'Menu' => \App\Http\Middleware\Menu::class,
+        'ClearMenu' => \App\Http\Middleware\ClearMenu::class,
         'MustLoggedIn' => \App\Http\Middleware\MustLoggedIn::class,
     ];
 
@@ -82,6 +84,7 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         // \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\ADHauth::class,
+        \App\Http\Middleware\ClearMenu::class,
         \App\Http\Middleware\Menu::class,
         \App\Http\Middleware\MustLoggedIn::class,
     ];
