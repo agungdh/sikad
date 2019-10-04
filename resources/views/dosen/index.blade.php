@@ -35,6 +35,11 @@
                     <th @@click="sort(2)" :class="tableSorting.colNo == 2 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama</th>  
                     <th>Proses</th>
                   </tr>
+                  <tr>
+                    <td>
+                      <input type="text" class="form-control">
+                    </td>
+                  </tr>
                 </thead>
                 <tbody>
                    <tr v-for="item in tableData">
