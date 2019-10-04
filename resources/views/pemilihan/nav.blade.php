@@ -1,1 +1,0 @@
-<li><a href="{{ route('pemilihan.index') }}"><i class="fa fa-home"></i> Pemilihan</a></li>

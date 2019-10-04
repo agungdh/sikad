@@ -23,3 +23,10 @@ Route::post('/dosen', 'DosenController@store')->name('dosen.store');
 Route::get('/dosen/{id}', 'DosenController@show')->name('dosen.show');
 Route::put('/dosen/{id}', 'DosenController@update')->name('dosen.update');
 Route::delete('/dosen/{id}', 'DosenController@delete')->name('dosen.delete');
+
+Route::get('/matkul', 'MatkulController@index')->name('matkul.index');
+Route::post('/matkul/getTableData', 'MatkulController@getTableData')->name('matkul.getTableData');
+Route::post('/matkul', 'MatkulController@store')->name('matkul.store');
+Route::get('/matkul/{id}', 'MatkulController@show')->name('matkul.show');
+Route::put('/matkul/{id}', 'MatkulController@update')->name('matkul.update');
+Route::delete('/matkul/{id}', 'MatkulController@delete')->name('matkul.delete');

@@ -1,1 +1,0 @@
-<li><a href="{{ route('periode.index') }}"><i class="fa fa-home"></i> Periode</a></li>

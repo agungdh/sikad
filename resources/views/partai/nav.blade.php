@@ -1,1 +1,0 @@
-<li><a href="{{ route('partai.index') }}"><i class="fa fa-home"></i> Partai</a></li>
