@@ -2,7 +2,11 @@
 
 Route::get('/', function() {
 	return view('template.palih');
-});
+})->name('main.index');
+
+Route::get('/tendang', function() {
+	return view('template.palih');
+})->name('main.tendang')->middleware('MustLoggedIn');
 
 Route::get('/seed', function() {
 	$dosens = [];

@@ -12,7 +12,11 @@ class MustLoggedIn
 		$loggedIn = session('login') ?: false;
 		
 		if ($loggedIn != true) {
-			return redirect($failRedirectTo);
+			if (\Request::wantsJson()) {
+				return response()->json(null, 401);
+			} else {
+				return redirect($failRedirectTo);
+			}
 		}
 
         return $next($request);
