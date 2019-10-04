@@ -63,7 +63,7 @@ class DosenController extends Controller
             'nama' => 'required',
         ]);
 
-        $test = Dosen::find($id);
+        $test = Dosen::findOrFail($id);
         $test->nidn = $request->nidn;
         $test->nama = $request->nama;
         $test->save();
@@ -71,6 +71,6 @@ class DosenController extends Controller
 
     public function delete($id)
     {
-        Dosen::find($id)->delete();
+        Dosen::findOrFail($id)->delete();
     }
 }

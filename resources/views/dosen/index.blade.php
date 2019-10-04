@@ -29,10 +29,10 @@
                   </tr>
                   <tr>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari NIDN" v-model="tableParam.search.nidn" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari NIDN" v-model.lazy="tableParam.search.nidn" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama" v-model="tableParam.search.nama" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama" v-model.lazy="tableParam.search.nama" @@change="call">
                     </th>
                   </tr>
                 </thead>
@@ -55,7 +55,7 @@
               <a>Menampilkan @{{tableInfo.from}} sampai @{{tableInfo.to}} dari @{{tableInfo.total}} data</a>
             </div>
             <div class="col-sm-12 col-md-4">
-              <input :disabled="isLoading" type="number" class="form-control form-control-sm" placeholder="Jumlah Data Per Halaman" type="number" v-model="tableParam.perPage" min="1" @@change="call">
+              <input :disabled="isLoading" type="number" class="form-control form-control-sm" placeholder="Jumlah Data Per Halaman" type="number" v-model.lazy="tableParam.perPage" min="1" @@change="call">
             </div>
             <div class="col-sm-12 col-md-4">
               <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
@@ -74,8 +74,8 @@
                         <li @@click="prevPage" class="paginate_button page-item previous" id="sampleTable_previous"><a class="page-link"><span class="fa fa-angle-left"></span></a></li>
                       </div>
 
-                        <input :disabled="isLoading" type="number" class="form-control form-control-sm" min="1" @@change="call" :max="tableParam.maxPage" v-model="tableParam.page">
-                        <input disabled type="text" class="form-control form-control-sm" v-model="tableInfo.maxPage">
+                        <input :disabled="isLoading" type="number" class="form-control form-control-sm" min="1" @@change="call" :max="tableParam.maxPage" v-model.lazy="tableParam.page">
+                        <input disabled type="text" class="form-control form-control-sm" v-model.lazy="tableInfo.maxPage">
 
                       <div v-if="!tableNav.next">
                         <li class="paginate_button page-item next disabled" id="sampleTable_next"><a class="page-link"><span class="fa fa-angle-right"></span></a></li>

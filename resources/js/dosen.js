@@ -21,15 +21,6 @@ window.vpage = new Vue({
       	asc: true,
       },
       tableData: [],
-      tableParam: {
-      	search: {
-          nidn: '',
-          nama: '',
-        },
-      	perPage: 5,
-      	maxPage: 1,
-      	page: 1,
-      },
       tableInfo: {
       	maxPage: null,
         from: 0,
@@ -42,6 +33,23 @@ window.vpage = new Vue({
       	next: true,
       	last: true,
       },
+      formDisplayDataErrors: [],
+      formState: '',
+      formStateAdd: true,
+      isLoading: false,
+      tableParam: {
+      	search: {
+          // EDIT HERE
+          nidn: '',
+          nama: '',
+          // END EDIT HERE
+        },
+      	perPage: 5,
+      	maxPage: 1,
+      	page: 1,
+      },
+
+      // EDIT HERE
       formData: {
         id: '',
         nidn: '',
@@ -52,10 +60,8 @@ window.vpage = new Vue({
         nidn: '',
         nama: '',
       },
-      formDisplayDataErrors: [],
-      formState: '',
-      formStateAdd: true,
-      isLoading: false,
+      // END EDIT HERE
+
     },
     components: {
         Loading
@@ -99,9 +105,7 @@ window.vpage = new Vue({
 		  })
 		  .catch(function (error) {
         vpage.stopLoading();
-
 		  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-		    console.log(error);
 		  });
     	},
     	save: function() {
@@ -122,7 +126,7 @@ window.vpage = new Vue({
 		  	$('#modal-page').modal('hide');
 		  })
 		  .catch(function (error) {
-        vpage.stopLoading();
+        vpage.call();
 		  	if (error.response.data.errors) {
 		  		vpage.formDisplayDataErrors = [];
 		  		let formErrors = error.response.data.errors;
@@ -137,7 +141,6 @@ window.vpage = new Vue({
 				}
 		  	} else {
 			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-			    console.log(error);
 		  	}
 		  });
     	},
@@ -153,12 +156,8 @@ window.vpage = new Vue({
 		  	vpage.formData.nama = response.data.nama;
 		  })
 		  .catch(function (error) {
-		  	if (error.response.data.message) {
-		  		Swal.fire('ERROR !!!', error.response.data.message, 'error');
-		  	} else {
-			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-			    console.log(error);
-		  	}
+        vpage.call();
+		  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
 		  });
     	},
     	update: function(id) {
@@ -171,7 +170,7 @@ window.vpage = new Vue({
 		  	$('#modal-page').modal('hide');
 		  })
 		  .catch(function (error) {
-        vpage.stopLoading();
+        vpage.call();
 		  	if (error.response.data.errors) {
 		  		vpage.formDisplayDataErrors = [];
 		  		let formErrors = error.response.data.errors;
@@ -186,7 +185,6 @@ window.vpage = new Vue({
 				}
 		  	} else {
 			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-			    console.log(error);
 		  	}
 		  });
     	},
@@ -199,14 +197,8 @@ window.vpage = new Vue({
 		  	vpage.call();
 		  })
 		  .catch(function (error) {
-		  	if (error.response.data.message) {
-          vpage.stopLoading();
-	  			Swal.fire('ERROR !!!', error.response.data.message, 'error');
-		  	} else {
-          vpage.stopLoading();
+        vpage.call();
 			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-			    console.log(error);
-			}
 		  });
     	},
     	sort: function(colNo) {
