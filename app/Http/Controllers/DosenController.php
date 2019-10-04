@@ -13,7 +13,6 @@ class DosenController extends Controller
     public function __construct()
     {
         $this->middleware('Menu:Dosen');
-        $this->middleware('MustLoggedIn');
     }
 
     public function index()

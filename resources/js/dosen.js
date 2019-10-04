@@ -39,6 +39,7 @@ window.vpage = new Vue({
       isLoading: false,
       tableParam: {
       	search: {
+          // START EDIT ================================================
           // EDIT HERE
           nidn: '',
           nama: '',
@@ -49,24 +50,120 @@ window.vpage = new Vue({
       	page: 1,
       },
 
-      // EDIT HERE
       formData: {
+        // EDIT HERE
         id: '',
         nidn: '',
         nama: '',
+        // END EDIT HERE
       },
       formDataErrors: {
+        // EDIT HERE
         id: '',
         nidn: '',
         nama: '',
+        // END EDIT HERE
       },
-      // END EDIT HERE
 
     },
     components: {
         Loading
     },
     methods: {
+      resetForm: function() {
+        vpage.formDisplayDataErrors = [];
+      vpage.formData = {
+        // EDIT HERE
+        id: '',
+        nidn: '',
+        nama: '',
+      };
+      vpage.formDataErrors = {
+        // EDIT HERE
+        id: '',
+        nidn: '',
+        nama: '',
+        // END EDIT HERE
+      };
+      },
+      store: function() {
+      axios.post(baseUrl + '/dosen', vpage.formData)
+      .then(function (response) {
+        vpage.stopLoading();
+        vpage.resetForm();
+        vpage.call();
+        vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
+        $('#modal-page').modal('hide');
+      })
+      .catch(function (error) {
+        vpage.call();
+        if (error.response.data.errors) {
+          vpage.formDisplayDataErrors = [];
+          let formErrors = error.response.data.errors;
+
+          // EDIT HERE
+          vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
+          vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
+          // END EDIT HERE
+
+          for (let key1 in formErrors) {
+            for (let key2 in formErrors[key1]) {
+              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+          }
+        }
+        } else {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        }
+      });
+      },
+      getData: function(id) {
+        vpage.startLoading();
+      axios.get(baseUrl + '/dosen/' + id)
+      .then(function (response) {
+        vpage.changeFormState(false, 'Ubah Data');
+        $("#modal-page").modal('show');
+        vpage.stopLoading();
+        // EDIT HERE
+        vpage.formData.id = response.data.id;
+        vpage.formData.nidn = response.data.nidn;
+        vpage.formData.nama = response.data.nama;
+        // END EDIT HERE
+      })
+      .catch(function (error) {
+        vpage.call();
+        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+      });
+      },
+      update: function(id) {
+      axios.put(baseUrl + '/dosen/' + id, vpage.formData)
+      .then(function (response) {
+        vpage.stopLoading();
+        vpage.resetForm();
+        vpage.call();
+        vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
+        $('#modal-page').modal('hide');
+      })
+      .catch(function (error) {
+        vpage.call();
+        if (error.response.data.errors) {
+          vpage.formDisplayDataErrors = [];
+          let formErrors = error.response.data.errors;
+          
+          // EDIT HERE
+          vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
+          vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
+          // END EDIT HERE
+          // END EDIT ================================================
+          for (let key1 in formErrors) {
+            for (let key2 in formErrors[key1]) {
+              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
+          }
+        }
+        } else {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        }
+      });
+      },
       toast: function(p1, p2, p3) {
         this.$toastr(p1, p2, p3);
       },
@@ -115,78 +212,6 @@ window.vpage = new Vue({
     		} else {
     			vpage.update(vpage.formData.id);
     		}
-    	},
-    	store: function() {
-			axios.post(baseUrl + '/dosen', vpage.formData)
-		  .then(function (response) {
-        vpage.stopLoading();
-		  	vpage.resetForm();
-		  	vpage.call();
-		  	vpage.toast('success', 'Berhasil Tambah Data', 'Sukses !!!');
-		  	$('#modal-page').modal('hide');
-		  })
-		  .catch(function (error) {
-        vpage.call();
-		  	if (error.response.data.errors) {
-		  		vpage.formDisplayDataErrors = [];
-		  		let formErrors = error.response.data.errors;
-
-		  		vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
-		  		vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
-
-		  		for (let key1 in formErrors) {
-				    for (let key2 in formErrors[key1]) {
-					    vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
-					}
-				}
-		  	} else {
-			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-		  	}
-		  });
-    	},
-    	getData: function(id) {
-        vpage.startLoading();
-			axios.get(baseUrl + '/dosen/' + id)
-		  .then(function (response) {
-		  	vpage.changeFormState(false, 'Ubah Data');
-		  	$("#modal-page").modal('show');
-        vpage.stopLoading();
-		  	vpage.formData.id = response.data.id;
-		  	vpage.formData.nidn = response.data.nidn;
-		  	vpage.formData.nama = response.data.nama;
-		  })
-		  .catch(function (error) {
-        vpage.call();
-		  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-		  });
-    	},
-    	update: function(id) {
-			axios.put(baseUrl + '/dosen/' + id, vpage.formData)
-		  .then(function (response) {
-        vpage.stopLoading();
-		  	vpage.resetForm();
-		  	vpage.call();
-		  	vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
-		  	$('#modal-page').modal('hide');
-		  })
-		  .catch(function (error) {
-        vpage.call();
-		  	if (error.response.data.errors) {
-		  		vpage.formDisplayDataErrors = [];
-		  		let formErrors = error.response.data.errors;
-
-		  		vpage.formDataErrors.nidn = formErrors.nidn ? formErrors.nidn[0] : '';
-		  		vpage.formDataErrors.nama = formErrors.nama ? formErrors.nama[0] : '';
-
-		  		for (let key1 in formErrors) {
-				    for (let key2 in formErrors[key1]) {
-					    vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
-					}
-				}
-		  	} else {
-			  	Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-		  	}
-		  });
     	},
     	delete: function(id) {
       vpage.startLoading();
@@ -264,19 +289,6 @@ window.vpage = new Vue({
     		vpage.formStateAdd = add;
     		vpage.formState = text;
         vpage.resetForm();
-    	},
-    	resetForm: function() {
-    		vpage.formDisplayDataErrors = [];
-			vpage.formData = {
-				id: '',
-				nidn: '',
-				nama: '',
-			};
-			vpage.formDataErrors = {
-				id: '',
-				nidn: '',
-				nama: '',
-			};
     	},
     	hapusData: function(id) {
     		Swal.fire({
