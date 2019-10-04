@@ -73,13 +73,23 @@ class JadwalController extends Controller
    public function store(Request $request)
     {
         $request->validate([
-            'kode' => 'required|unique:matkul,kode',
-            'matkul' => 'required',
+            'id_dosen' => 'required',
+            'id_matkul' => 'required',
+            'kelas' => 'required',
+            'hari' => 'required',
+            'waktu' => 'required',
+            'ruangan' => 'required',
+            'semester' => 'required',
         ]);
 
         $test = new Jadwal();
-        $test->kode = $request->kode;
-        $test->matkul = $request->matkul;
+        $test->id_dosen = $request->id_dosen;
+        $test->id_matkul = $request->id_matkul;
+        $test->kelas = $request->kelas;
+        $test->hari = $request->hari;
+        $test->waktu = $request->waktu;
+        $test->ruangan = $request->ruangan;
+        $test->semester = $request->semester;
         $test->save();
     }
 
@@ -91,16 +101,23 @@ class JadwalController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'kode' => [
-                'required',
-                Rule::unique('matkul')->ignore($id),
-            ],
-            'matkul' => 'required',
+            'id_dosen' => 'required',
+            'id_matkul' => 'required',
+            'kelas' => 'required',
+            'hari' => 'required',
+            'waktu' => 'required',
+            'ruangan' => 'required',
+            'semester' => 'required',
         ]);
 
         $test = Jadwal::findOrFail($id);
-        $test->kode = $request->kode;
-        $test->matkul = $request->matkul;
+        $test->id_dosen = $request->id_dosen;
+        $test->id_matkul = $request->id_matkul;
+        $test->kelas = $request->kelas;
+        $test->hari = $request->hari;
+        $test->waktu = $request->waktu;
+        $test->ruangan = $request->ruangan;
+        $test->semester = $request->semester;
         $test->save();
     }
 

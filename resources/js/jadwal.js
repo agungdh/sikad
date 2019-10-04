@@ -86,12 +86,16 @@ window.vpage = new Vue({
         // END EDIT HERE
       },
       vselectOptions: {
+        // EDIT HERE
         id_dosen: [],
         id_matkul: [],
+        // END EDIT HERE
       },
       vselectValue: {
+        // EDIT HERE
         id_dosen: null,
         id_matkul: null,
+        // END EDIT HERE
       },
 
     },
