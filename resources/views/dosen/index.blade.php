@@ -18,14 +18,6 @@
       </p>
       <div id="sampleTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
-              <input :disabled="isLoading" type="number" class="form-control form-control-sm" placeholder="Jumlah Data Per Halaman" type="number" v-model="tableParam.perPage" min="1" @@change="recall">
-            </div>
-            <div class="col-sm-12 col-md-6">
-              <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari" v-model="tableParam.search" @@change="recall">
-            </div>
-        </div>
-        <div class="row">
           <div class="col-sm-12">
             <div class="table-responsive">
               <table class="table table-striped dataTable">
@@ -36,9 +28,12 @@
                     <th>Proses</th>
                   </tr>
                   <tr>
-                    <td>
-                      <input type="text" class="form-control">
-                    </td>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari NIDN" v-model="tableParam.search.nidn" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama" v-model="tableParam.search.nama" @@change="call">
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -56,41 +51,44 @@
           </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-4">
               <a>Menampilkan @{{tableInfo.from}} sampai @{{tableInfo.to}} dari @{{tableInfo.total}} data</a>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-4">
+              <input :disabled="isLoading" type="number" class="form-control form-control-sm" placeholder="Jumlah Data Per Halaman" type="number" v-model="tableParam.perPage" min="1" @@change="call">
+            </div>
+            <div class="col-sm-12 col-md-4">
               <div class="dataTables_paginate paging_simple_numbers" id="sampleTable_paginate">
                   <ul class="pagination">
                       <div v-if="!tableNav.first">
-                        <li class="paginate_button page-item previous disabled" id="sampleTable_previous"><a href="#" class="page-link"><span class="fa fa-angle-double-left"></span></a></li>
+                        <li class="paginate_button page-item previous disabled" id="sampleTable_previous"><a class="page-link"><span class="fa fa-angle-double-left"></span></a></li>
                       </div>
                       <div v-else>
-                        <li @@click="firstPage" class="paginate_button page-item previous" id="sampleTable_previous"><a href="#" class="page-link"><span class="fa fa-angle-double-left"></span></a></li>
+                        <li @@click="firstPage" class="paginate_button page-item previous" id="sampleTable_previous"><a class="page-link"><span class="fa fa-angle-double-left"></span></a></li>
                       </div>
 
                       <div v-if="!tableNav.prev">
-                        <li class="paginate_button page-item previous disabled" id="sampleTable_previous"><a href="#" class="page-link"><span class="fa fa-angle-left"></span></a></li>
+                        <li class="paginate_button page-item previous disabled" id="sampleTable_previous"><a class="page-link"><span class="fa fa-angle-left"></span></a></li>
                       </div>
                       <div v-else>
-                        <li @@click="prevPage" class="paginate_button page-item previous" id="sampleTable_previous"><a href="#" class="page-link"><span class="fa fa-angle-left"></span></a></li>
+                        <li @@click="prevPage" class="paginate_button page-item previous" id="sampleTable_previous"><a class="page-link"><span class="fa fa-angle-left"></span></a></li>
                       </div>
 
-                        <input :disabled="isLoading" type="number" class="form-control form-control-sm" min="1" @@change="recall" :max="tableParam.maxPage" v-model="tableParam.page">
+                        <input :disabled="isLoading" type="number" class="form-control form-control-sm" min="1" @@change="call" :max="tableParam.maxPage" v-model="tableParam.page">
                         <input disabled type="text" class="form-control form-control-sm" v-model="tableInfo.maxPage">
 
                       <div v-if="!tableNav.next">
-                        <li class="paginate_button page-item next disabled" id="sampleTable_next"><a href="#" class="page-link"><span class="fa fa-angle-right"></span></a></li>
+                        <li class="paginate_button page-item next disabled" id="sampleTable_next"><a class="page-link"><span class="fa fa-angle-right"></span></a></li>
                       </div>
                       <div v-else>
-                        <li @@click="nextPage" class="paginate_button page-item next" id="sampleTable_next"><a href="#" class="page-link"><span class="fa fa-angle-right"></span></a></li>
+                        <li @@click="nextPage" class="paginate_button page-item next" id="sampleTable_next"><a class="page-link"><span class="fa fa-angle-right"></span></a></li>
                       </div>
 
                       <div v-if="!tableNav.last">
-                        <li class="paginate_button page-item next disabled" id="sampleTable_next"><a href="#" class="page-link"><span class="fa fa-angle-double-right"></span></a></li>
+                        <li class="paginate_button page-item next disabled" id="sampleTable_next"><a class="page-link"><span class="fa fa-angle-double-right"></span></a></li>
                       </div>
                       <div v-else>
-                        <li @@click="lastPage" class="paginate_button page-item next" id="sampleTable_next"><a href="#" class="page-link"><span class="fa fa-angle-double-right"></span></a></li>
+                        <li @@click="lastPage" class="paginate_button page-item next" id="sampleTable_next"><a class="page-link"><span class="fa fa-angle-double-right"></span></a></li>
                       </div>
                   </ul>
               </div>

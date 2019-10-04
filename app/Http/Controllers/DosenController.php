@@ -26,10 +26,8 @@ class DosenController extends Controller
         $columnModel[2] = "nama";
 
         $dosens = new Dosen();
-        $dosens = $dosens->where(function ($query) use ($req) {
-            return $query->orWhere('nidn', 'like', '%' . $req->search . '%')
-                            ->orWhere('nama', 'like', '%' . $req->search . '%');
-        });
+        $dosens = $dosens->where('nidn', 'like', '%' . $req->search['nidn'] . '%');
+        $dosens = $dosens->where('nama', 'like', '%' . $req->search['nama'] . '%');
         $dosens = $dosens->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
         $dosens = $dosens->paginate($req->perPage);
 

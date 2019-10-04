@@ -22,16 +22,13 @@ window.vpage = new Vue({
       },
       tableData: [],
       tableParam: {
-      	search: '',
+      	search: {
+          nidn: '',
+          nama: '',
+        },
       	perPage: 5,
       	maxPage: 1,
       	page: 1,
-      },
-      tableParamPrev: {
-      	search: null,
-      	perPage: null,
-      	maxPage: null,
-      	page: null,
       },
       tableInfo: {
       	maxPage: null,
@@ -73,31 +70,6 @@ window.vpage = new Vue({
       stopLoading: function() {
         vpage.isLoading = false;
       },
-    	recall: function() {
-    		let recall = false;
-
-    		if (vpage.tableParam.search != vpage.tableParamPrev.search) {
-    			vpage.tableParamPrev.search = vpage.tableParam.search;
-
-    			recall = true;
-    		}
-
-    		if (vpage.tableParam.perPage != vpage.tableParamPrev.perPage) {
-    			vpage.tableParamPrev.perPage = vpage.tableParam.perPage;
-
-    			recall = true;
-    		}
-
-    		if (vpage.tableParam.page != vpage.tableParamPrev.page) {
-    			vpage.tableParamPrev.page = vpage.tableParam.page;
-
-    			recall = true;
-    		}
-
-    		if (recall) {
-				vpage.call();
-    		}
-    	},
     	call: function() {
         vpage.startLoading();
 
@@ -118,6 +90,7 @@ window.vpage = new Vue({
 		    vpage.tableInfo.from = response.data.from;
 		    vpage.tableInfo.to = response.data.to;
 		    vpage.tableInfo.total = response.data.total;
+        vpage.tableParam.page = response.data.current_page;
 
 		    vpage.setTableNav();
 
