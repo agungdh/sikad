@@ -128,6 +128,10 @@ window.vpage = new Vue({
         semester: '',
         // END EDIT HERE
       };
+      // EDIT HERE
+      vpage.vselectValue.id_dosen = null;
+      vpage.vselectValue.id_matkul = null;
+      // END EDIT HERE
       },
       // EDIT HERE
       onDosenSearch(search, loading) {
