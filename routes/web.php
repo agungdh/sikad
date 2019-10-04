@@ -5,16 +5,21 @@ Route::get('/', function() {
 });
 
 Route::get('/seed', function() {
-	$datas = [];
+	$dosens = [];
+	$matkuls = [];
 
 	$faker = \Faker\Factory::create();
 
 	for ($i=1; $i <= 1000; $i++) { 
-		$datas[$i]['nidn'] = 123456 + $i;
-		$datas[$i]['nama'] = $faker->name;
+		$dosens[$i]['nidn'] = 123456 + $i;
+		$dosens[$i]['nama'] = $faker->name;
+		
+		$matkuls[$i]['kode'] = 123456 + $i;
+		$matkuls[$i]['matkul'] = $faker->word;
 	}
 
-	DB::table('dosen')->insert($datas);
+	\App\Models\Dosen::insert($dosens);
+	\App\Models\Matkul::insert($matkuls);
 });
 
 Route::get('/dosen', 'DosenController@index')->name('dosen.index');
