@@ -133,28 +133,62 @@ window.vpage = new Vue({
       vpage.vselectValue.id_matkul = null;
       // END EDIT HERE
       },
+      initVselectOptions: function() {
+        // EDIT HERE
+        vpage.initDosenSearch();
+        vpage.initMatkulSearch();
+        // END EDIT HERE
+      },
       // EDIT HERE
+      initDosenSearch: function() {
+        axios.post(baseUrl + '/jadwal/getDosen', {search: ''})
+        .then(function (response) {
+          for (let key in response.data) {
+            vpage.vselectOptions.id_dosen.push({
+              key: response.data[key].id,
+              value: `${response.data[key].nidn} => ${response.data[key].nama}`,
+            });
+          }
+        })
+        .catch(function (error) {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        });
+      },
       onDosenSearch(search, loading) {
         loading(true);
         this.dosenSearch(loading, search, this);
       },
       dosenSearch: _.debounce((loading, search, vm) => {
         vpage.vselectOptions.id_dosen = [];
-        axios.post(baseUrl + '/jadwal/getDosen', {search: search})
-      .then(function (response) {
-        for (let key in response.data) {
-          vpage.vselectOptions.id_dosen.push({
-            key: response.data[key].id,
-            value: `${response.data[key].nidn} => ${response.data[key].nama}`,
-          });
-        }
-        loading(false);
-      })
-      .catch(function (error) {
-        loading(false);
-        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-      });
-      }, 350),
+          axios.post(baseUrl + '/jadwal/getDosen', {search: search})
+        .then(function (response) {
+          for (let key in response.data) {
+            vpage.vselectOptions.id_dosen.push({
+              key: response.data[key].id,
+              value: `${response.data[key].nidn} => ${response.data[key].nama}`,
+            });
+          }
+          loading(false);
+        })
+        .catch(function (error) {
+          loading(false);
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        });
+      }, 100),
+      initMatkulSearch: function() {
+        axios.post(baseUrl + '/jadwal/getMatkul', {search: ''})
+        .then(function (response) {
+          for (let key in response.data) {
+            vpage.vselectOptions.id_matkul.push({
+              key: response.data[key].id,
+              value: `${response.data[key].kode} => ${response.data[key].matkul}`,
+            });
+          }
+        })
+        .catch(function (error) {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        });
+      },
       onMatkulSearch(search, loading) {
         loading(true);
         this.matkulSearch(loading, search, this);
@@ -175,7 +209,7 @@ window.vpage = new Vue({
         loading(false);
         Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
       });
-      }, 350),
+      }, 100),
       // END EDIT HERE
       store: function() {
       axios.post(baseUrl + '/jadwal', vpage.formData)
@@ -425,6 +459,8 @@ window.vpage = new Vue({
      vpage.call();
 
      vpage.setMaxPageInfo();
+     
+     vpage.initVselectOptions();
     });
   },
 });

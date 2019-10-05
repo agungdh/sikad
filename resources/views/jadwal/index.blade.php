@@ -24,13 +24,13 @@
                 <thead>
                   <tr>
                     <th @@click="sort(1)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Hari</th>  
-                    <th @@click="sort(2)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Waktu</th>  
-                    <th @@click="sort(3)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Ruangan</th>  
-                    <th @@click="sort(4)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Kode Mata Kuliah</th>  
-                    <th @@click="sort(5)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Mata Kuliah</th>  
-                    <th @@click="sort(6)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Kelas</th>  
-                    <th @@click="sort(7)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Semester</th>  
-                    <th @@click="sort(8)" :class="tableSorting.colNo == 1 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Dosen</th>  
+                    <th @@click="sort(2)" :class="tableSorting.colNo == 2 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Waktu</th>  
+                    <th @@click="sort(3)" :class="tableSorting.colNo == 3 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Ruangan</th>  
+                    <th @@click="sort(4)" :class="tableSorting.colNo == 4 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Kode Mata Kuliah</th>  
+                    <th @@click="sort(5)" :class="tableSorting.colNo == 5 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Mata Kuliah</th>  
+                    <th @@click="sort(6)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Kelas</th>  
+                    <th @@click="sort(7)" :class="tableSorting.colNo == 7 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Semester</th>  
+                    <th @@click="sort(8)" :class="tableSorting.colNo == 8 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Dosen</th>  
                     <th>Proses</th>
                   </tr>
                   <tr>
