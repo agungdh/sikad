@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: sikad
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Fri, 04 Oct 2019 11:37:50 +0700
+-- Date: Sat, 05 Oct 2019 10:59:01 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `matkul` (
   `matkul` varchar(191) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `kode` (`kode`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,11 +38,12 @@ CREATE TABLE `matkul` (
 LOCK TABLES `matkul` WRITE;
 /*!40000 ALTER TABLE `matkul` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `matkul` VALUES (1,'MPK020418','Pendidikan Agama'),(2,'MKK020218','Konsep Sistem Informasi'),(3,'MKK021718','Akuntansi'),(4,'MKK020118','Algoritma dan Pemrograman '),(5,'MPK020518','Bahasa Indonesia'),(6,'MKK022118','Prak algoritma & pemrog'),(7,'MPK020318','PKN'),(8,'MKK022018','Kalkulus'),(9,'MPK020118','Bahasa Inggris 1'),(10,'MKB020418','Perencanaan Sistem Informasi'),(11,'MKK020618','Sistem Basis Data'),(12,'MKB021718','Keamanan JarKom'),(13,'MKB021018','E-Bisnis'),(14,'MKB020118','Analisis Proses Bisnis'),(15,'MKK021318','Struktur Data'),(16,'MKB020518','Pemrograman Web '),(17,'MKB020503','Perancangan Sistem Informasi'),(18,'MKK020616','Keamanan Komputer'),(19,'MKB020606','Pemrograman Orientasi Objek'),(20,'MKK020718','Audit Sistem Informasi'),(21,'MKB020911','E-Bisnis'),(22,'MKK020819','Metode Penelitian'),(23,'MKB038216','Pengembangan E Bisnis'),(24,'MBB020901','Kerja Praktek'),(25,'MKB020810','Keamanan Jaringan Komputer'),(26,'MKB020809','Sistem Penunjang Keputusan'),(27,'MBB021002','Skripsi');
 /*!40000 ALTER TABLE `matkul` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `matkul` with 0 row(s)
+-- Dumped table `matkul` with 27 row(s)
 --
 
 --
@@ -57,7 +58,7 @@ CREATE TABLE `dosen` (
   `nama` varchar(191) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nidn` (`nidn`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,11 +68,12 @@ CREATE TABLE `dosen` (
 LOCK TABLES `dosen` WRITE;
 /*!40000 ALTER TABLE `dosen` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `dosen` VALUES (1,'026065502','ANJAR SULASTIONO'),(2,'0224117302','ANTO PURWO SANTOSO'),(3,'0227048201',' Apri Candra W,S.Kom., M.T.I'),(4,'0205058203','DWI KARYAWATI'),(5,'021106830','EKA GERHAYU'),(6,'0215057201','EUIS MUSTIKA PRIYANGANTI'),(7,'0203058701','HERI NURDIYANTO, S.Kom,M.T.I'),(8,'017047501','ISMALIA AFRIANI'),(9,'024117304','KURNIAWAN SAPUTRA'),(10,'0206047803','KUSWANTO'),(11,'0208028401','M. Nur Ikhsanto, S.Kom, M.T.I'),(12,'030035705','MACHUDOR YUSMAN M'),(13,'0204107701','NINING ISTI UTAMI'),(14,'0210107002','R EKA GRALESMANA'),(15,'0206108304','REFLI DWIYANA'),(16,'0204077902','Ridwan Yusuf, S.T, M.T.I'),(17,'0214098501','SEPTIAN DICKY CHANDRA, S.Si,M.T.I'),(18,'0207098101','SUKRI ADI UTAMA'),(19,'0210078301','Surono,S.Kom,M.T.I'),(20,'020016601','SYAFIUDDIN'),(21,'0216128403','TANFII DIAN ROHMAN'),(22,'0211018601','Tri Aristi Saputri, S.Kom., M.T.I'),(23,'0219047601','Untoro Apsiswanto, S.T., M.T.I'),(24,'002','Suprianto, S.Kom, M.T.I'),(25,'001','ROHANIA, S.Pd, M.Pd'),(26,'004004136','Benny Nurdianto, S.Kom'),(27,'0221038402','Budi Sutomo, S.Kom, M.T.I'),(28,'0214118604','M. Reza Redo Islami, S.Kom, M.T.I'),(29,'016','RIRIN WIDIANINGRUM, M.Pd, M.M'),(30,'006','Jevan Nelson, S.Kom'),(31,'004','Irfan Nur Afni, ST., M.T.I'),(32,'0225058601','M. Adie Syaputra, S.Kom, M.T.I'),(33,'0220048704','NIZAMIYATI, S.Kom,M.Ti'),(34,'007','JUNI BAYU, S.Pd,M.Pd'),(35,'008','Arif Ismunandar, MM'),(36,'0226098502','Sita Muharni, S.Kom., M.T.I'),(37,'010','Drs. Wardaya, M.Pd'),(38,'011','Haris Setiaji, S.Kom, M.T.I'),(39,'012','Zainuddin, ST., M.T.I'),(40,'004026267','median satria'),(41,'004101152','EKA GUSTINA SARI'),(42,'004015227','Tri Budi Hartono, S.Kom'),(43,'013','Ayu Umaka, SE,MM'),(44,'014','Ade Sukma Arum, S,Pd'),(45,'015','Ade Sanjaya, MM'),(46,'017','MUHAJIR, S.Kom.i'),(47,'018','BIGI UNDADRAJA, S.TP,M.Si'),(48,'019','Ambar Pristia Rini, M.Pd'),(49,'020','Andreas Perdana, S.Kom, M.T.I'),(50,'021','YULDIKA PRASETYA'),(51,'082176099413','Bintang Ubamnata'),(52,'022','Yuspa Fitri Meza,S.Pd');
 /*!40000 ALTER TABLE `dosen` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `dosen` with 0 row(s)
+-- Dumped table `dosen` with 52 row(s)
 --
 
 --
@@ -120,4 +122,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Fri, 04 Oct 2019 11:37:50 +0700
+-- Dump completed on: Sat, 05 Oct 2019 10:59:01 +0700

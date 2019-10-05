@@ -8,6 +8,9 @@ Route::get('/tendang', function() {
 	return view('template.palih');
 })->name('main.tendang')->middleware('MustLoggedIn');
 
+Route::get('/seed/dosen', 'SeedController@dosen');
+Route::get('/seed/matkul', 'SeedController@matkul');
+
 Route::get('/seed', function() {
 	$dosens = [];
 	$matkuls = [];
