@@ -95,7 +95,7 @@ class JadwalController extends Controller
 
     public function show($id)
     {
-        return Jadwal::findOrFail($id);
+        return Jadwal::with('matkul', 'dosen')->findOrFail($id);
     }
 
     public function update(Request $request, $id)

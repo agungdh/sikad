@@ -140,8 +140,8 @@ window.vpage = new Vue({
         // END EDIT HERE
       },
       // EDIT HERE
-      initDosenSearch: function() {
-        axios.post(baseUrl + '/jadwal/getDosen', {search: ''})
+      initDosenSearch: function(search = '') {
+        axios.post(baseUrl + '/jadwal/getDosen', {search: search})
         .then(function (response) {
           for (let key in response.data) {
             vpage.vselectOptions.id_dosen.push({
@@ -175,8 +175,8 @@ window.vpage = new Vue({
           Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
         });
       }, 100),
-      initMatkulSearch: function() {
-        axios.post(baseUrl + '/jadwal/getMatkul', {search: ''})
+      initMatkulSearch: function(search = '') {
+        axios.post(baseUrl + '/jadwal/getMatkul', {search: search})
         .then(function (response) {
           for (let key in response.data) {
             vpage.vselectOptions.id_matkul.push({
@@ -255,13 +255,15 @@ window.vpage = new Vue({
         vpage.stopLoading();
         // EDIT HERE
         vpage.formData.id = response.data.id;
-        vpage.formData.id_dosen = response.data.id_dosen;
-        vpage.formData.id_matkul = response.data.id_matkul;
         vpage.formData.kelas = response.data.kelas;
         vpage.formData.hari = response.data.hari;
         vpage.formData.waktu = response.data.waktu;
         vpage.formData.ruangan = response.data.ruangan;
         vpage.formData.semester = response.data.semester;
+
+        vpage.vselectValue.id_dosen = {key: response.data.dosen.id, value:`${response.data.dosen.nidn} => ${response.data.dosen.nama}`};
+        vpage.vselectValue.id_matkul = {key: response.data.matkul.id, value:`${response.data.matkul.kode} => ${response.data.matkul.matkul}`};
+        
         // END EDIT HERE
       })
       .catch(function (error) {
