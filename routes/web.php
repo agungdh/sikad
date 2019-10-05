@@ -32,6 +32,8 @@ Route::post('/jadwal/getTableData', 'JadwalController@getTableData')->name('jadw
 Route::post('/jadwal/getDosen', 'JadwalController@getDosen')->name('jadwal.getDosen');
 Route::post('/jadwal/getMatkul', 'JadwalController@getMatkul')->name('jadwal.getMatkul');
 
-Route::resource('/dosen', 'DosenController');
-Route::resource('/matkul', 'MatkulController');
-Route::resource('/jadwal', 'JadwalController');
+Route::resources([
+	'/dosen' => 'DosenController',
+	'/matkul' => 'MatkulController',
+	'/jadwal' => 'JadwalController',
+]);
