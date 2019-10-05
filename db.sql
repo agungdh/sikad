@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: sikad
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 05 Oct 2019 10:59:01 +0700
+-- Date: Sat, 05 Oct 2019 11:23:55 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -96,7 +96,7 @@ CREATE TABLE `jadwal` (
   KEY `id_matkul` (`id_matkul`),
   CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`),
   CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`id_matkul`) REFERENCES `matkul` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,11 +106,12 @@ CREATE TABLE `jadwal` (
 LOCK TABLES `jadwal` WRITE;
 /*!40000 ALTER TABLE `jadwal` DISABLE KEYS */;
 SET autocommit=0;
+INSERT INTO `jadwal` VALUES (1,35,3,'1SI M1','Selasa','18 : 30 - 20:00','B II','2019/2020 S1'),(2,35,3,'1SI P1','Rabu','10 : 00 - 11:30','B I','2019/2020 S1'),(3,35,3,'1SI P1','Kamis','13 : 00 - 14:30','A VI','2019/2020 S1'),(4,35,3,'1SI M1','Kamis','20 : 00 - 21:30','B I','2019/2020 S1'),(5,28,26,'7SI P1','Selasa','15 : 00 - 16:30','B I','2019/2020 S1'),(6,28,26,'7SI P1','Kamis','15 : 00 - 16:30','B II','2019/2020 S1');
 /*!40000 ALTER TABLE `jadwal` ENABLE KEYS */;
 UNLOCK TABLES;
 COMMIT;
 
--- Dumped table `jadwal` with 0 row(s)
+-- Dumped table `jadwal` with 6 row(s)
 --
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -122,4 +123,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 05 Oct 2019 10:59:01 +0700
+-- Dump completed on: Sat, 05 Oct 2019 11:23:55 +0700

@@ -149,12 +149,12 @@
 
           <div class="form-group">
             <label :title="formDataErrors.id_dosen" :style="{ color: formDataErrors.id_dosen != '' ? 'red' : null }">Dosen</label>
-            <v-select :disabled="isLoading" :title="formDataErrors.id_dosen" :options="vselectOptions.id_dosen" label="value" v-model.lazy="vselectValue.id_dosen" @@search="onDosenSearch"></v-select>
+            <v-select placeholder="Dosen" :disabled="isLoading" :title="formDataErrors.id_dosen" :options="vselectOptions.id_dosen" label="value" v-model.lazy="vselectValue.id_dosen" @@search="onDosenSearch"></v-select>
           </div>
 
           <div class="form-group">
             <label :title="formDataErrors.id_matkul" :style="{ color: formDataErrors.id_matkul != '' ? 'red' : null }">Mata Kuliah</label>
-            <v-select :disabled="isLoading" :title="formDataErrors.id_matkul" :options="vselectOptions.id_matkul" label="value" v-model.lazy="vselectValue.id_matkul" @@search="onMatkulSearch"></v-select>
+            <v-select placeholder="Mata Kuliah" :disabled="isLoading" :title="formDataErrors.id_matkul" :options="vselectOptions.id_matkul" label="value" v-model.lazy="vselectValue.id_matkul" @@search="onMatkulSearch"></v-select>
           </div>
 
           <div class="form-group">
