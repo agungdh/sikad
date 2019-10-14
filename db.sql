@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: sikad
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Mon, 14 Oct 2019 14:01:23 +0700
+-- Date: Mon, 14 Oct 2019 14:31:07 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -186,8 +186,8 @@ COMMIT;
 CREATE TABLE `chat` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_jadwal` int(11) NOT NULL,
-  `id_mahasiswa` int(11) NOT NULL,
-  `id_dosen` int(11) NOT NULL,
+  `id_mahasiswa` int(11) DEFAULT NULL,
+  `id_dosen` int(11) DEFAULT NULL,
   `waktu` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_jadwal` (`id_jadwal`),
@@ -222,4 +222,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Mon, 14 Oct 2019 14:01:23 +0700
+-- Dump completed on: Mon, 14 Oct 2019 14:31:07 +0700
