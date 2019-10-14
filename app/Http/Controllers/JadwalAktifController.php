@@ -61,19 +61,30 @@ class JadwalAktifController extends Controller
         $columnModel[4] = "namamk";
         $columnModel[5] = "npm";
         $columnModel[6] = "namamhs";
+        $columnModel[7] = "hari";
+        $columnModel[8] = "waktu";
+        $columnModel[9] = "ruangan";
+        $columnModel[10] = "semester";
+        $columnModel[11] = "kelas";
 
         $datas = new JadwalAktif();
+        $datas = $datas->with('jadwal');
         $datas = $datas->join('jadwal', 'jadwal_aktif.id_jadwal', '=', 'jadwal.id');
         $datas = $datas->join('mahasiswa', 'jadwal_aktif.id_mahasiswa', '=', 'mahasiswa.id');
         $datas = $datas->join('dosen', 'jadwal.id_dosen', '=', 'dosen.id');
         $datas = $datas->join('matkul', 'jadwal.id_matkul', '=', 'matkul.id');
-        $datas = $datas->select('jadwal_aktif.id', 'dosen.nidn AS nidn', 'dosen.nama AS nama', 'matkul.kode AS kodemk', 'matkul.matkul AS namamk', 'mahasiswa.npm AS npm', 'mahasiswa.nama AS namamhs');
+        $datas = $datas->select('jadwal_aktif.*', 'dosen.nidn AS nidn', 'dosen.nama AS nama', 'matkul.kode AS kodemk', 'matkul.matkul AS namamk', 'mahasiswa.npm AS npm', 'mahasiswa.nama AS namamhs');
         $datas = $datas->where('dosen.nidn', 'like', '%' . $req->search['nidn'] . '%');
         $datas = $datas->where('dosen.nama', 'like', '%' . $req->search['nama'] . '%');
         $datas = $datas->where('matkul.kode', 'like', '%' . $req->search['kodemk'] . '%');
         $datas = $datas->where('matkul.matkul', 'like', '%' . $req->search['namamk'] . '%');
         $datas = $datas->where('mahasiswa.npm', 'like', '%' . $req->search['npm'] . '%');
         $datas = $datas->where('mahasiswa.nama', 'like', '%' . $req->search['namamhs'] . '%');
+        $datas = $datas->where('jadwal.hari', 'like', '%' . $req->search['hari'] . '%');
+        $datas = $datas->where('jadwal.waktu', 'like', '%' . $req->search['waktu'] . '%');
+        $datas = $datas->where('jadwal.ruangan', 'like', '%' . $req->search['ruangan'] . '%');
+        $datas = $datas->where('jadwal.semester', 'like', '%' . $req->search['semester'] . '%');
+        $datas = $datas->where('jadwal.kelas', 'like', '%' . $req->search['kelas'] . '%');
         $datas = $datas->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
         $datas = $datas->paginate($req->perPage);
 

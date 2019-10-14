@@ -28,27 +28,47 @@
                     <th @@click="sort(3)" :class="tableSorting.colNo == 3 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Kode Mata Kuliah</th>  
                     <th @@click="sort(4)" :class="tableSorting.colNo == 4 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Mata Kuliah</th>  
                     <th @@click="sort(5)" :class="tableSorting.colNo == 5 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">NPM</th>  
-                    <th @@click="sort(6)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Mahasiswa Kelas</th>    
+                    <th @@click="sort(6)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Nama Mahasiswa</th>    
+                    <th @@click="sort(7)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Hari</th>    
+                    <th @@click="sort(8)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Waktu</th>    
+                    <th @@click="sort(9)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Ruangan</th>    
+                    <th @@click="sort(10)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Semester</th>    
+                    <th @@click="sort(11)" :class="tableSorting.colNo == 6 ? tableSorting.asc ? 'sorting_asc' : 'sorting_desc' : 'sorting'">Kelas</th>    
                     <th>Proses</th>
                   </tr>
                   <tr>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Hari" v-model.lazy="tableParam.search.nidn" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari NIDN" v-model.lazy="tableParam.search.nidn" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Waktu" v-model.lazy="tableParam.search.nama" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama Dosen" v-model.lazy="tableParam.search.nama" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Ruangan" v-model.lazy="tableParam.search.kodemk" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Kode Mata Kuliah" v-model.lazy="tableParam.search.kodemk" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Kode Mata Kuliah" v-model.lazy="tableParam.search.namamk" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama Mata Kuliah" v-model.lazy="tableParam.search.namamk" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama Mata Kuliah" v-model.lazy="tableParam.search.npm" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari NPM" v-model.lazy="tableParam.search.npm" @@change="call">
                     </th>
                     <th>
-                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama Kelas" v-model.lazy="tableParam.search.namamhs" @@change="call">
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Nama Mahasiswa" v-model.lazy="tableParam.search.namamhs" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Hari" v-model.lazy="tableParam.search.hari" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Waktu" v-model.lazy="tableParam.search.waktu" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Ruangan" v-model.lazy="tableParam.search.ruangan" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Semester" v-model.lazy="tableParam.search.semester" @@change="call">
+                    </th>
+                    <th>
+                      <input :disabled="isLoading" type="text" class="form-control form-control-sm" placeholder="Cari Kelas" v-model.lazy="tableParam.search.kelas" @@change="call">
                     </th>
                   </tr>
                 </thead>
@@ -60,8 +80,12 @@
                     <td>@{{ item.namamk }}</td>
                     <td>@{{ item.npm }}</td>
                     <td>@{{ item.namamhs }}</td>
+                    <td>@{{ item.jadwal.hari }}</td>
+                    <td>@{{ item.jadwal.waktu }}</td>
+                    <td>@{{ item.jadwal.ruangan }}</td>
+                    <td>@{{ item.jadwal.semester }}</td>
+                    <td>@{{ item.jadwal.kelas }}</td>
                     <td>
-                      <button class="btn btn-info btn-sm" type="button" @@click="getData(item.id)">Ubah</button>
                       <button class="btn btn-danger btn-sm" type="button" @@click="hapusData(item.id)">Hapus</button>
                     </td>
                   </tr>

@@ -52,6 +52,11 @@ window.vpage = new Vue({
           namamk: '',
           npm: '',
           namamhs: '',
+          hari: '',
+          waktu: '',
+          ruangan: '',
+          semester: '',
+          kelas: '',
           // END EDIT HERE
         },
         perPage: 5,
@@ -214,65 +219,6 @@ window.vpage = new Vue({
           vpage.formDataErrors.semester = formErrors.semester ? formErrors.semester[0] : '';
           // END EDIT HERE
 
-          for (let key1 in formErrors) {
-            for (let key2 in formErrors[key1]) {
-              vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
-          }
-        }
-        } else {
-          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-        }
-      });
-      },
-      getData: function(id) {
-        vpage.startLoading();
-      axios.get(baseUrl + '/jadwalaktif/' + id)
-      .then(function (response) {
-        vpage.changeFormState(false, 'Ubah Data');
-        $("#modal-page").modal('show');
-        vpage.stopLoading();
-        // EDIT HERE
-        vpage.formData.id = response.data.id;
-        vpage.formData.kelas = response.data.kelas;
-        vpage.formData.hari = response.data.hari;
-        vpage.formData.waktu = response.data.waktu;
-        vpage.formData.ruangan = response.data.ruangan;
-        vpage.formData.semester = response.data.semester;
-
-        vpage.vselectValue.id_jadwal = {key: response.data.dosen.id, value:`${response.data.dosen.nidn} => ${response.data.dosen.nama}`};
-        vpage.vselectValue.id_mahasiswa = {key: response.data.matkul.id, value:`${response.data.matkul.kode} => ${response.data.matkul.matkul}`};
-        
-        // END EDIT HERE
-      })
-      .catch(function (error) {
-        vpage.call();
-        Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
-      });
-      },
-      update: function(id) {
-      axios.put(baseUrl + '/jadwalaktif/' + id, vpage.formData)
-      .then(function (response) {
-        vpage.stopLoading();
-        vpage.resetForm();
-        vpage.call();
-        vpage.toast('success', 'Berhasil Ubah Data', 'Sukses !!!');
-        $('#modal-page').modal('hide');
-      })
-      .catch(function (error) {
-        vpage.call();
-        if (error.response.data.errors) {
-          vpage.formDisplayDataErrors = [];
-          let formErrors = error.response.data.errors;
-          
-          // EDIT HERE
-          vpage.formDataErrors.id_jadwal = formErrors.id_jadwal ? formErrors.id_jadwal[0] : '';
-          vpage.formDataErrors.id_mahasiswa = formErrors.id_mahasiswa ? formErrors.id_mahasiswa[0] : '';
-          vpage.formDataErrors.kelas = formErrors.kelas ? formErrors.kelas[0] : '';
-          vpage.formDataErrors.hari = formErrors.hari ? formErrors.hari[0] : '';
-          vpage.formDataErrors.waktu = formErrors.waktu ? formErrors.waktu[0] : '';
-          vpage.formDataErrors.ruangan = formErrors.ruangan ? formErrors.ruangan[0] : '';
-          vpage.formDataErrors.semester = formErrors.semester ? formErrors.semester[0] : '';
-          // END EDIT HERE
           for (let key1 in formErrors) {
             for (let key2 in formErrors[key1]) {
               vpage.formDisplayDataErrors.push(formErrors[key1][key2]);
