@@ -5,7 +5,7 @@
 @endsection
 
 @section('nav')
-<li class="breadcrumb-item"><a href="{{route('matkul.index')}}">Jadwal Kuliah</a></li>
+<li class="breadcrumb-item"><a href="{{route('jadwal.index')}}">Jadwal Kuliah</a></li>
 @endsection
 
 @section('content')

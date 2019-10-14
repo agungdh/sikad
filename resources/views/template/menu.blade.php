@@ -2,3 +2,4 @@
 <li><a :class="{'active': activeMenu.includes('Mata Kuliah'), 'app-menu__item': true}" href="{{route('matkul.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Mata Kuliah</span></a></li>
 <li><a :class="{'active': activeMenu.includes('Mahasiswa'), 'app-menu__item': true}" href="{{route('mahasiswa.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Mahasiswa</span></a></li>
 <li><a :class="{'active': activeMenu.includes('Jadwal Kuliah'), 'app-menu__item': true}" href="{{route('jadwal.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Jadwal Kuliah</span></a></li>
+<li><a :class="{'active': activeMenu.includes('Jadwal Aktif'), 'app-menu__item': true}" href="{{route('jadwalaktif.index')}}"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Jadwal Aktif</span></a></li>

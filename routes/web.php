@@ -39,9 +39,14 @@ Route::post('/jadwal/getTableData', 'JadwalController@getTableData')->name('jadw
 Route::post('/jadwal/getDosen', 'JadwalController@getDosen')->name('jadwal.getDosen');
 Route::post('/jadwal/getMatkul', 'JadwalController@getMatkul')->name('jadwal.getMatkul');
 
+Route::post('/jadwalaktif/getTableData', 'JadwalAktifController@getTableData')->name('jadwalaktif.getTableData');
+Route::post('/jadwalaktif/getJadwal', 'JadwalAktifController@getJadwal')->name('jadwalaktif.getJadwal');
+Route::post('/jadwalaktif/getMahasiswa', 'JadwalAktifController@getMahasiswa')->name('jadwalaktif.getMahasiswa');
+
 Route::resources([
 	'/dosen' => 'DosenController',
 	'/matkul' => 'MatkulController',
 	'/jadwal' => 'JadwalController',
 	'/mahasiswa' => 'MahasiswaController',
+	'/jadwalaktif' => 'JadwalAktifController',
 ]);

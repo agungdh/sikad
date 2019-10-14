@@ -16,6 +16,7 @@ mix.js('resources/js/dosen.js', 'compiled/js');
 mix.js('resources/js/matkul.js', 'compiled/js');
 mix.js('resources/js/jadwal.js', 'compiled/js');
 mix.js('resources/js/mahasiswa.js', 'compiled/js');
+mix.js('resources/js/jadwalaktif.js', 'compiled/js');
 
 mix.version();
 mix.disableNotifications();
