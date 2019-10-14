@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+
+use Validator;
 use ADHhelper;
 
 use App\Models\JadwalAktif;
@@ -94,42 +96,25 @@ class JadwalAktifController extends Controller
 
    public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_jadwal' => 'required',
-            'id_mahasiswa' => 'required',
+            'id_mahasiswa' => 'required', 
         ]);
+
+        if (JadwalAktif::where(['id_jadwal' => $request->id_jadwal, 'id_mahasiswa' => $request->id_mahasiswa])->first()) {
+            $validator->after(function ($validator) {
+                $validator->errors()->add('id_jadwal', 'The id_jadwal already been taken.');
+                $validator->errors()->add('id_mahasiswa', 'The id_mahasiswa already been taken.');
+            });
+        }
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors(), 'message' => 'The given data was invalid.'], 422);
+        }
 
         $data = new JadwalAktif();
         $data->id_jadwal = $request->id_jadwal;
         $data->id_mahasiswa = $request->id_mahasiswa;
-        $data->save();
-    }
-
-    public function show($id)
-    {
-        return JadwalAktif::with('matkul', 'dosen')->findOrFail($id);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'id_dosen' => 'required',
-            'id_matkul' => 'required',
-            'kelas' => 'required',
-            'hari' => 'required',
-            'waktu' => 'required',
-            'ruangan' => 'required',
-            'semester' => 'required',
-        ]);
-
-        $data = JadwalAktif::findOrFail($id);
-        $data->id_dosen = $request->id_dosen;
-        $data->id_matkul = $request->id_matkul;
-        $data->kelas = $request->kelas;
-        $data->hari = $request->hari;
-        $data->waktu = $request->waktu;
-        $data->ruangan = $request->ruangan;
-        $data->semester = $request->semester;
         $data->save();
     }
 
