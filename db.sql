@@ -3,7 +3,7 @@
 -- Host: 127.0.0.1	Database: sikad
 -- ------------------------------------------------------
 -- Server version 	5.5.5-10.3.17-MariaDB-0ubuntu0.19.04.1
--- Date: Sat, 05 Oct 2019 11:23:55 +0700
+-- Date: Mon, 14 Oct 2019 14:01:23 +0700
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -44,6 +44,69 @@ UNLOCK TABLES;
 COMMIT;
 
 -- Dumped table `matkul` with 27 row(s)
+--
+
+--
+-- Table structure for table `mahasiswa`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mahasiswa` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `npm` varchar(191) NOT NULL,
+  `nama` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `npm` (`npm`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mahasiswa`
+--
+
+LOCK TABLES `mahasiswa` WRITE;
+/*!40000 ALTER TABLE `mahasiswa` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `mahasiswa` VALUES (1,'19029001','Agung Sapto Margono Dh');
+/*!40000 ALTER TABLE `mahasiswa` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `mahasiswa` with 1 row(s)
+--
+
+--
+-- Table structure for table `jadwal_aktif`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `jadwal_aktif` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jadwal` int(11) NOT NULL,
+  `id_mahasiswa` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_jadwal` (`id_jadwal`),
+  KEY `id_mahasiswa` (`id_mahasiswa`),
+  CONSTRAINT `jadwal_aktif_ibfk_1` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id`),
+  CONSTRAINT `jadwal_aktif_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jadwal_aktif`
+--
+
+LOCK TABLES `jadwal_aktif` WRITE;
+/*!40000 ALTER TABLE `jadwal_aktif` DISABLE KEYS */;
+SET autocommit=0;
+INSERT INTO `jadwal_aktif` VALUES (2,2,1),(3,1,1),(5,6,1);
+/*!40000 ALTER TABLE `jadwal_aktif` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `jadwal_aktif` with 3 row(s)
 --
 
 --
@@ -114,6 +177,42 @@ COMMIT;
 -- Dumped table `jadwal` with 6 row(s)
 --
 
+--
+-- Table structure for table `chat`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_jadwal` int(11) NOT NULL,
+  `id_mahasiswa` int(11) NOT NULL,
+  `id_dosen` int(11) NOT NULL,
+  `waktu` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_jadwal` (`id_jadwal`),
+  KEY `id_mahasiswa` (`id_mahasiswa`),
+  KEY `id_dosen` (`id_dosen`),
+  CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id`),
+  CONSTRAINT `chat_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `mahasiswa` (`id`),
+  CONSTRAINT `chat_ibfk_3` FOREIGN KEY (`id_dosen`) REFERENCES `dosen` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chat`
+--
+
+LOCK TABLES `chat` WRITE;
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+SET autocommit=0;
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+UNLOCK TABLES;
+COMMIT;
+
+-- Dumped table `chat` with 0 row(s)
+--
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -123,4 +222,4 @@ COMMIT;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on: Sat, 05 Oct 2019 11:23:55 +0700
+-- Dump completed on: Mon, 14 Oct 2019 14:01:23 +0700
