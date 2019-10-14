@@ -29,8 +29,12 @@ Route::get('/seed', function() {
 	\App\Models\Matkul::insert($matkuls);
 });
 
+Route::post('/mahasiswa/getTableData', 'MahasiswaController@getTableData')->name('mahasiswa.getTableData');
+
 Route::post('/dosen/getTableData', 'DosenController@getTableData')->name('dosen.getTableData');
+
 Route::post('/matkul/getTableData', 'MatkulController@getTableData')->name('matkul.getTableData');
+
 Route::post('/jadwal/getTableData', 'JadwalController@getTableData')->name('jadwal.getTableData');
 Route::post('/jadwal/getDosen', 'JadwalController@getDosen')->name('jadwal.getDosen');
 Route::post('/jadwal/getMatkul', 'JadwalController@getMatkul')->name('jadwal.getMatkul');
@@ -39,4 +43,5 @@ Route::resources([
 	'/dosen' => 'DosenController',
 	'/matkul' => 'MatkulController',
 	'/jadwal' => 'JadwalController',
+	'/mahasiswa' => 'MahasiswaController',
 ]);

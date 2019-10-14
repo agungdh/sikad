@@ -51,22 +51,22 @@ class JadwalController extends Controller
         $columnModel[7] = "semester";
         $columnModel[8] = "dosen";
 
-        $dosens = new Jadwal();
-        $dosens = $dosens->join('dosen', 'jadwal.id_dosen', '=', 'dosen.id');
-        $dosens = $dosens->join('matkul', 'jadwal.id_matkul', '=', 'matkul.id');
-        $dosens = $dosens->select('jadwal.*', 'dosen.nama AS dosen', 'matkul.kode AS kodemk', 'matkul.matkul AS namamk');
-        $dosens = $dosens->where('hari', 'like', '%' . $req->search['hari'] . '%');
-        $dosens = $dosens->where('waktu', 'like', '%' . $req->search['waktu'] . '%');
-        $dosens = $dosens->where('ruangan', 'like', '%' . $req->search['ruangan'] . '%');
-        $dosens = $dosens->where('matkul.kode', 'like', '%' . $req->search['kodemk'] . '%');
-        $dosens = $dosens->where('matkul.matkul', 'like', '%' . $req->search['namamk'] . '%');
-        $dosens = $dosens->where('kelas', 'like', '%' . $req->search['kelas'] . '%');
-        $dosens = $dosens->where('semester', 'like', '%' . $req->search['semester'] . '%');
-        $dosens = $dosens->where('dosen.nama', 'like', '%' . $req->search['dosen'] . '%');
-        $dosens = $dosens->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
-        $dosens = $dosens->paginate($req->perPage);
+        $datas = new Jadwal();
+        $datas = $datas->join('dosen', 'jadwal.id_dosen', '=', 'dosen.id');
+        $datas = $datas->join('matkul', 'jadwal.id_matkul', '=', 'matkul.id');
+        $datas = $datas->select('jadwal.*', 'dosen.nama AS dosen', 'matkul.kode AS kodemk', 'matkul.matkul AS namamk');
+        $datas = $datas->where('hari', 'like', '%' . $req->search['hari'] . '%');
+        $datas = $datas->where('waktu', 'like', '%' . $req->search['waktu'] . '%');
+        $datas = $datas->where('ruangan', 'like', '%' . $req->search['ruangan'] . '%');
+        $datas = $datas->where('matkul.kode', 'like', '%' . $req->search['kodemk'] . '%');
+        $datas = $datas->where('matkul.matkul', 'like', '%' . $req->search['namamk'] . '%');
+        $datas = $datas->where('kelas', 'like', '%' . $req->search['kelas'] . '%');
+        $datas = $datas->where('semester', 'like', '%' . $req->search['semester'] . '%');
+        $datas = $datas->where('dosen.nama', 'like', '%' . $req->search['dosen'] . '%');
+        $datas = $datas->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
+        $datas = $datas->paginate($req->perPage);
 
-        return response()->json($dosens);
+        return response()->json($datas);
     }
 
 
@@ -82,15 +82,15 @@ class JadwalController extends Controller
             'semester' => 'required',
         ]);
 
-        $test = new Jadwal();
-        $test->id_dosen = $request->id_dosen;
-        $test->id_matkul = $request->id_matkul;
-        $test->kelas = $request->kelas;
-        $test->hari = $request->hari;
-        $test->waktu = $request->waktu;
-        $test->ruangan = $request->ruangan;
-        $test->semester = $request->semester;
-        $test->save();
+        $data = new Jadwal();
+        $data->id_dosen = $request->id_dosen;
+        $data->id_matkul = $request->id_matkul;
+        $data->kelas = $request->kelas;
+        $data->hari = $request->hari;
+        $data->waktu = $request->waktu;
+        $data->ruangan = $request->ruangan;
+        $data->semester = $request->semester;
+        $data->save();
     }
 
     public function show($id)
@@ -110,15 +110,15 @@ class JadwalController extends Controller
             'semester' => 'required',
         ]);
 
-        $test = Jadwal::findOrFail($id);
-        $test->id_dosen = $request->id_dosen;
-        $test->id_matkul = $request->id_matkul;
-        $test->kelas = $request->kelas;
-        $test->hari = $request->hari;
-        $test->waktu = $request->waktu;
-        $test->ruangan = $request->ruangan;
-        $test->semester = $request->semester;
-        $test->save();
+        $data = Jadwal::findOrFail($id);
+        $data->id_dosen = $request->id_dosen;
+        $data->id_matkul = $request->id_matkul;
+        $data->kelas = $request->kelas;
+        $data->hari = $request->hari;
+        $data->waktu = $request->waktu;
+        $data->ruangan = $request->ruangan;
+        $data->semester = $request->semester;
+        $data->save();
     }
 
     public function destroy($id)

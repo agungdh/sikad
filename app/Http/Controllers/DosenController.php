@@ -42,10 +42,10 @@ class DosenController extends Controller
             'nama' => 'required',
         ]);
 
-        $test = new Dosen();
-        $test->nidn = $request->nidn;
-        $test->nama = $request->nama;
-        $test->save();
+        $data = new Dosen();
+        $data->nidn = $request->nidn;
+        $data->nama = $request->nama;
+        $data->save();
     }
 
     public function show($id)
@@ -63,10 +63,10 @@ class DosenController extends Controller
             'nama' => 'required',
         ]);
 
-        $test = Dosen::findOrFail($id);
-        $test->nidn = $request->nidn;
-        $test->nama = $request->nama;
-        $test->save();
+        $data = Dosen::findOrFail($id);
+        $data->nidn = $request->nidn;
+        $data->nama = $request->nama;
+        $data->save();
     }
 
     public function destroy($id)

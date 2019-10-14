@@ -25,13 +25,13 @@ class MatkulController extends Controller
         $columnModel[1] = "kode";
         $columnModel[2] = "matkul";
 
-        $dosens = new Matkul();
-        $dosens = $dosens->where('kode', 'like', '%' . $req->search['kode'] . '%');
-        $dosens = $dosens->where('matkul', 'like', '%' . $req->search['matkul'] . '%');
-        $dosens = $dosens->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
-        $dosens = $dosens->paginate($req->perPage);
+        $datas = new Matkul();
+        $datas = $datas->where('kode', 'like', '%' . $req->search['kode'] . '%');
+        $datas = $datas->where('matkul', 'like', '%' . $req->search['matkul'] . '%');
+        $datas = $datas->orderBy($columnModel[$req->sorting['colNo']], $req->sorting['asc'] ? 'ASC' : 'DESC');
+        $datas = $datas->paginate($req->perPage);
 
-        return response()->json($dosens);
+        return response()->json($datas);
     }
 
 
@@ -42,10 +42,10 @@ class MatkulController extends Controller
             'matkul' => 'required',
         ]);
 
-        $test = new Matkul();
-        $test->kode = $request->kode;
-        $test->matkul = $request->matkul;
-        $test->save();
+        $data = new Matkul();
+        $data->kode = $request->kode;
+        $data->matkul = $request->matkul;
+        $data->save();
     }
 
     public function show($id)
@@ -63,10 +63,10 @@ class MatkulController extends Controller
             'matkul' => 'required',
         ]);
 
-        $test = Matkul::findOrFail($id);
-        $test->kode = $request->kode;
-        $test->matkul = $request->matkul;
-        $test->save();
+        $data = Matkul::findOrFail($id);
+        $data->kode = $request->kode;
+        $data->matkul = $request->matkul;
+        $data->save();
     }
 
     public function destroy($id)
