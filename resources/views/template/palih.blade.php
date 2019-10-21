@@ -38,6 +38,51 @@ if(session('login')) {
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body class="app sidebar-mini rtl">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-messaging.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyB_ofM3Msl4rJUK0iTWbhvhziu1JPeUhN8",
+        authDomain: "sikad-dev.firebaseapp.com",
+        databaseURL: "https://sikad-dev.firebaseio.com",
+        projectId: "sikad-dev",
+        storageBucket: "sikad-dev.appspot.com",
+        messagingSenderId: "970253799626",
+        appId: "1:970253799626:web:5539cf8908ceaa10c6e433",
+        measurementId: "G-C3LJK7LTHB"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+
+      const messaging = firebase.messaging();
+      messaging.usePublicVapidKey("BP5GOwt92GmXrkjVR5RSr2vz2ANb4Ln6nvh-hQ4nYFIUm_gIjj8Ek7V8v_d0QeiYp30qnqd9qwxV0MTMrlRzDEA");
+
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+          // TODO(developer): Retrieve an Instance ID token for use with FCM.
+          // ...
+        } else {
+          console.log('Unable to get permission to notify.');
+        }
+      });
+
+      messaging.getToken().then((currentToken) => {
+        console.log(`Current token: ${currentToken}`);
+      });
+
+      messaging.onMessage((payload) => {
+        console.log(`Message received. ${payload}`);
+      });
+    </script>
     <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="{{url('/')}}">Vali</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
