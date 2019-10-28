@@ -42,6 +42,17 @@ window.vpage = new Vue({
       formState: '',
       formStateAdd: true,
       isLoading: false,
+      autoComplete: {
+        show: {
+          ruangan: false,
+        },
+        data: {
+          ruangan: [],
+        },
+        recall: {
+          ruangan: true,
+        },
+      },
       tableParam: {
         search: {
           // START EDIT ================================================
@@ -60,7 +71,6 @@ window.vpage = new Vue({
         maxPage: 1,
         page: 1,
       },
-
       formData: {
         // EDIT HERE
         id: '',
@@ -103,6 +113,23 @@ window.vpage = new Vue({
         Loading
     },
     methods: {
+      setAutoCompleteData: function(tipe, kata) {
+        vpage.autoComplete.data[tipe] = [];
+        vpage.autoComplete.recall[tipe] = false;
+        vpage.formData[tipe] = kata;
+      },
+      getAutoCompleteData: function(tipe, cari) {
+        axios.post(baseUrl + '/jadwal/getAutoCompleteData', {tipe, cari})
+        .then(function (response) {
+          vpage.autoComplete.data.ruangan = [];
+          for (let key in response.data) {
+            vpage.autoComplete.data.ruangan.push(response.data[key].ruangan);
+          }
+        })
+        .catch(function (error) {
+          Swal.fire('Whoops!!!', 'Something bad happend...', 'error');
+        });
+      },
       resetForm: function() {
         vpage.formDisplayDataErrors = [];
       vpage.formData = {
@@ -455,6 +482,17 @@ window.vpage = new Vue({
       setMaxPageInfo: function() {
         vpage.tableInfo.maxPage = `of ${vpage.tableParam.maxPage}`;
       }
+    },
+    watch: {
+        'formData.ruangan': function (newVal, oldVal) {
+          if (newVal.length > 0 && vpage.autoComplete.recall.ruangan) {
+            vpage.getAutoCompleteData('ruangan', newVal);
+          } else {
+            vpage.autoComplete.data.ruangan = [];
+          }
+
+          vpage.autoComplete.recall.ruangan = true;
+        }
     },
     mounted: function () {
     this.$nextTick(function () {

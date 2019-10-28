@@ -9,6 +9,7 @@ use ADHhelper;
 use App\Models\Jadwal;
 use App\Models\Dosen;
 use App\Models\Matkul;
+use App\Models\Ruangan;
 
 class JadwalController extends Controller
 {
@@ -20,6 +21,27 @@ class JadwalController extends Controller
     public function index()
     {
         return view('jadwal.index');
+    }
+
+    public function getAutoCompleteData(Request $req)
+    {
+        switch ($req->tipe) {
+            case 'ruangan':
+            return $this->getRuangan($req->cari);
+                break;            
+            default:
+                abort(404);
+                break;
+        }
+    }
+
+    private function getRuangan($cari)
+    {
+        return Jadwal::select('ruangan')
+        ->distinct()
+        ->where('ruangan', 'like', '%' . $cari . '%')
+        ->limit(5)
+        ->get();
     }
 
     public function getDosen(Request $req)

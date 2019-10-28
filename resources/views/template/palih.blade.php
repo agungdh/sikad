@@ -31,6 +31,43 @@ if(session('login')) {
           z-index: 1051 !important;
       }
     </style>
+    <style>
+      /*the container must be positioned relative:*/
+      .autocomplete {
+        position: relative;
+        /*display: inline-block;*/
+      }
+
+      .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+      }
+
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff; 
+        border-bottom: 1px solid #d4d4d4; 
+      }
+
+      /*when hovering an item:*/
+      .autocomplete-items div:hover {
+        background-color: #e9e9e9; 
+      }
+
+      /*when navigating through the items using the arrow keys:*/
+      .autocomplete-active {
+        background-color: DodgerBlue !important; 
+        color: #ffffff; 
+      }
+      </style>
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('storage/assets')}}/palih/css/main.css">
     <!-- Font-icon css-->
@@ -46,7 +83,7 @@ if(session('login')) {
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-analytics.js"></script>
 
-    <script>
+{{--     <script>
       // Your web app's Firebase configuration
       var firebaseConfig = {
         apiKey: "AIzaSyB_ofM3Msl4rJUK0iTWbhvhziu1JPeUhN8",
@@ -82,7 +119,7 @@ if(session('login')) {
       messaging.onMessage((payload) => {
         console.log(`Message received. ${payload}`);
       });
-    </script>
+    </script> --}}
     <!-- Navbar-->
     <header class="app-header"><a class="app-header__logo" href="{{url('/')}}">Vali</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>

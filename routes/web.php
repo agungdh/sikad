@@ -38,6 +38,7 @@ Route::post('/matkul/getTableData', 'MatkulController@getTableData')->name('matk
 Route::post('/jadwal/getTableData', 'JadwalController@getTableData')->name('jadwal.getTableData');
 Route::post('/jadwal/getDosen', 'JadwalController@getDosen')->name('jadwal.getDosen');
 Route::post('/jadwal/getMatkul', 'JadwalController@getMatkul')->name('jadwal.getMatkul');
+Route::post('/jadwal/getAutoCompleteData', 'JadwalController@getAutoCompleteData')->name('jadwal.getAutoCompleteData');
 
 Route::post('/jadwalaktif/getTableData', 'JadwalAktifController@getTableData')->name('jadwalaktif.getTableData');
 Route::post('/jadwalaktif/getJadwal', 'JadwalAktifController@getJadwal')->name('jadwalaktif.getJadwal');

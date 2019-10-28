@@ -172,9 +172,12 @@
             <input :disabled="isLoading" :title="formDataErrors.waktu" :class="{ 'form-control': true, 'is-invalid': formDataErrors.waktu != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.waktu" placeholder="Waktu">
           </div>
 
-          <div class="form-group">
+          <div class="form-group autocomplete">
             <label :title="formDataErrors.ruangan" :style="{ color: formDataErrors.ruangan != '' ? 'red' : null }">Ruangan</label>
-            <input :disabled="isLoading" :title="formDataErrors.ruangan" :class="{ 'form-control': true, 'is-invalid': formDataErrors.ruangan != '' }" @@keyup.enter="save" type="text" class="form-control" v-model.lazy="formData.ruangan" placeholder="Ruangan">
+            <input @@blur="autoComplete.data.ruangan = []" :disabled="isLoading" :title="formDataErrors.ruangan" :class="{ 'form-control': true, 'is-invalid': formDataErrors.ruangan != '' }" @@keyup.enter="save" type="text" class="form-control" v-model="formData.ruangan" placeholder="Ruangan">
+            <div v-if="autoComplete.data.ruangan.length > 0" class="autocomplete-items">
+              <div v-for="item in autoComplete.data.ruangan" @@click="setAutoCompleteData('ruangan', item)">@{{item}}</div>
+            </div>
           </div>
 
           <div class="form-group">
