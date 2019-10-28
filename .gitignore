@@ -18,3 +18,5 @@ storage/app/public/files/logo/
 storage/app/public/files/foto/
 
 public/compiled/
+
+public/mix-manifest.json

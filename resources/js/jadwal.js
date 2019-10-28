@@ -113,7 +113,11 @@ window.vpage = new Vue({
         Loading
     },
     methods: {
+      swalHello: function() {
+        Swal.fire('Hello, World!');
+      },
       setAutoCompleteData: function(tipe, kata) {
+        console.log({tipe, kata});
         vpage.autoComplete.data[tipe] = [];
         vpage.autoComplete.recall[tipe] = false;
         vpage.formData[tipe] = kata;
